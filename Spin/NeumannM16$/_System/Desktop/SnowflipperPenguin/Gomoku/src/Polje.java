@@ -1,5 +1,5 @@
 
-public enum Plošèa {
+public enum Polje {
 	
 	// Polje na plošèi je ali Prazno ali èrno ali belo
 	

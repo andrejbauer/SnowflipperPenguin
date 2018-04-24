@@ -1,10 +1,10 @@
 
-public class Poteza {
+public class Vektor {
 	
 	private int x;
 	private int y;
 	
-	public Poteza(int x, int y) {
+	public Vektor(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

@@ -14,7 +14,7 @@ public enum Igralec {
 	// Vrne polje tistega ki je na potezi.
 
 	public Polje getPolje() {
-		return (this == È ? Polje.B : Polje.È);
+		return (this == È ? Polje.È : Polje.B);
 	}
 
 	

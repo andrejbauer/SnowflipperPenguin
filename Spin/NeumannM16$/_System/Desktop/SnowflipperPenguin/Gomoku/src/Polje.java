@@ -3,7 +3,7 @@ public enum Polje {
 	
 	// Polje na plošèi je ali Prazno ali èrno ali belo
 	
-		Prazno,
-		È,
-		B;
+		PRAZNO,
+		CRNO,
+		BELO;
 }

@@ -2,11 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Igra {
-	
-	// Igralna plošèa je velikosti N x N.
-	
-	public static final int N = 19;
-	
+		
 	// Število istih krogcev ki jih moramo imeti v vrstici/stolpcu/diagonali da zmagamo.
 	
 	public static final int M = 5;
@@ -17,7 +13,7 @@ public class Igra {
 	
 	// Atributi ki jih ima igra.
 	
-	private Polje[][] igralna_plošèa;
+	private Plosca igralna_plošèa;
 	private Igralec na_potezi;
 	
 	// Dodamo vektorje za preverajanje
@@ -34,20 +30,20 @@ public class Igra {
 	
 	public void zaèetek_igre() {
 		dodamoVektorje();
-		igralna_plošèa = new Polje[N][N];
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					igralna_plošèa[i][j] = Polje.Prazno;
+		igralna_plošèa = new Plosca();
+			for (int i = 0; i < Plosca.N; i++) {
+				for (int j = 0; j < Plosca.N; j++) {
+					igralna_plošèa.setPlosca(i,j,Polje.PRAZNO);
 				}
 			}
-		na_potezi = Igralec.È;
+		na_potezi = Igralec.CRNO;
 	}
 	
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		if (igralna_plošèa[p.getX()][p.getY()] == Polje.Prazno) {
-			igralna_plošèa[p.getX()][p.getY()] = na_potezi.getPolje();
+		if (igralna_plošèa.getPlosca(p.getX(),p.getY()) == Polje.PRAZNO) {
+			igralna_plošèa.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
 			
 			System.out.println(na_potezi.getPolje());
 			System.out.println(p.getX());
@@ -55,6 +51,7 @@ public class Igra {
 			
 			if(aliJeKdoZmagal(p)) {
 				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+				System.exit(1);
 			} else {
 			na_potezi = na_potezi.nasprotnik();
 			}
@@ -76,9 +73,9 @@ public class Igra {
 	
 	public boolean aliObstajaŠeKakšnaPoteza() {
 		
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				if(igralna_plošèa[i][j] == Polje.Prazno) {
+		for (int i = 0; i < Plosca.N; i++) {
+			for (int j = 0; j < Plosca.N; j++) {
+				if(igralna_plošèa.getPlosca(i,j) == Polje.PRAZNO) {
 					return true;
 				} 
 			}
@@ -103,9 +100,9 @@ public class Igra {
 				x = p.getX() + i*v.getX();
 				y = p.getY() + i*v.getY();
 				
-				if ((0 <= x) && (x < N) && (0 <= y) && (y < N)) {
+				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)) {
 				
-					if(igralna_plošèa[x][y] == na_potezi.getPolje()) {
+					if(igralna_plošèa.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
 					} else {
 						break;
@@ -119,9 +116,9 @@ public class Igra {
 				x = p.getX() - i*v.getX();
 				y = p.getY() - i*v.getY();
 				
-				if ((0 <= x) && (x < N) && (0 <= y) && (y < N)) {
+				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)) {
 				
-					if(igralna_plošèa[x][y] == na_potezi.getPolje()) {
+					if(igralna_plošèa.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
 					} else {
 						break;

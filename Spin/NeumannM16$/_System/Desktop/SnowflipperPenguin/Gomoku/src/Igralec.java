@@ -3,18 +3,18 @@ public enum Igralec {
 	
 	// Imamo dva igralca èrnega in belega
 	
-	È, B;
+	CRNO, BELO;
 	
 	// Zamenja to kdo je na potezi.
 	
 	public Igralec nasprotnik() {
-		return (this == È ? B : È);
+		return (this == CRNO ? BELO : CRNO);
 	}
 	
 	// Vrne polje tistega ki je na potezi.
 
 	public Polje getPolje() {
-		return (this == È ? Polje.È : Polje.B);
+		return (this == CRNO ? Polje.CRNO : Polje.BELO);
 	}
 
 	

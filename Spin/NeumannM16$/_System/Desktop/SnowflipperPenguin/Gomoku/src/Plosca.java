@@ -1,0 +1,25 @@
+
+public class Plosca {
+	// Igralna plošèa je velikosti N x N.
+	public static final int N=19 ;
+	//Definiramo plošèo
+	public Polje [][] plosca;
+	
+	//Definimano igralno plošèo
+		protected Plosca() {
+			super();
+			plosca=new Polje [N][N];
+			}
+	
+	//Dobimo vsebino polja na koordinatah (x,y)
+	public Polje getPlosca(int x,int y) {
+		
+		return plosca[x][y];
+	}
+	// Nastavimo vsebino polja na koordinatah (x,y)
+	public void setPlosca(int x,int y, Polje f) {
+		
+		plosca[x][y]=f;
+	}
+
+}

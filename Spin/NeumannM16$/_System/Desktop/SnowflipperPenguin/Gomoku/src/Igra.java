@@ -18,18 +18,19 @@ public class Igra {
 	
 	// Dodamo vektorje za preverajanje
 	
-	public void dodamoVektorje() {
+	{
+	
 		vektorji_za_preverjanje.add(new Vektor(0, 1));
 		vektorji_za_preverjanje.add(new Vektor(1, 1));
 		vektorji_za_preverjanje.add(new Vektor(1, 0));
 		vektorji_za_preverjanje.add(new Vektor(1, -1));
+	
 	}
 	
 	// Ustvarimo novo igralno plošèo dimenzije N x N.
 	// z i oznaèimo stolpce, z j pa vrstice.
 	
 	public void zaèetek_igre() {
-		dodamoVektorje();
 		igralna_plošèa = new Plosca();
 			for (int i = 0; i < Plosca.N; i++) {
 				for (int j = 0; j < Plosca.N; j++) {

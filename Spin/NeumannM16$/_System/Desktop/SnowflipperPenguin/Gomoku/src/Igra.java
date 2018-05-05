@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Igra {
 		
-	// Število istih krogcev ki jih moramo imeti v vrstici/stolpcu/diagonali da zmagamo.
+	// stevilo istih krogcev ki jih moramo imeti v vrstici/stolpcu/diagonali da zmagamo.
 	
 	public static final int M = 5;
 	
@@ -13,7 +13,7 @@ public class Igra {
 	
 	// Atributi ki jih ima igra.
 	
-	private Plosca igralna_plošèa;
+	private Plosca igralna_plosca;
 	private Igralec na_potezi;
 	
 	// Dodamo vektorje za preverajanje
@@ -27,15 +27,15 @@ public class Igra {
 	
 	}
 	
-	// Ustvarimo novo igralno plošèo dimenzije N x N.
-	// z i oznaèimo stolpce, z j pa vrstice.
+	// Ustvarimo novo igralno plosco dimenzije N x N.
+	// z i oznacimo stolpce, z j pa vrstice.
 	
 	public Igra() {
 
-		igralna_plošèa = new Plosca();
+		igralna_plosca = new Plosca();
 			for (int i = 0; i < Plosca.N; i++) {
 				for (int j = 0; j < Plosca.N; j++) {
-					igralna_plošèa.setPlosca(i,j,Polje.PRAZNO);
+					igralna_plosca.setPlosca(i,j,Polje.PRAZNO);
 				}
 			}
 		na_potezi = Igralec.CRNI;
@@ -45,8 +45,8 @@ public class Igra {
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		if (igralna_plošèa.getPlosca(p.getX(),p.getY()) == Polje.PRAZNO) {
-			igralna_plošèa.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+		if (igralna_plosca.getPlosca(p.getX(),p.getY()) == Polje.PRAZNO) {
+			igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
 			
 			System.out.println(na_potezi.getPolje());
 			System.out.println(p.getX());
@@ -59,10 +59,10 @@ public class Igra {
 			na_potezi = na_potezi.nasprotnik();
 			}
 			
-			// Pogledamo ali obstaja še kaka poteza
+			// Pogledamo ali obstaja se kaka poteza
 			
-			if (!aliObstajaŠeKakšnaPoteza()) {
-				System.out.println("Igra se je konèala neodloèeno");
+			if (!aliObstajaseKaksnaPoteza()) {
+				System.out.println("Igra se je koncala neodloceno");
 			}
 			
 			return true;
@@ -72,13 +72,13 @@ public class Igra {
 		}
 	}
 	
-	// Ali obstaja še kaka poteza.
+	// Ali obstaja se kaka poteza.
 	
-	public boolean aliObstajaŠeKakšnaPoteza() {
+	public boolean aliObstajaseKaksnaPoteza() {
 		
 		for (int i = 0; i < Plosca.N; i++) {
 			for (int j = 0; j < Plosca.N; j++) {
-				if(igralna_plošèa.getPlosca(i,j) == Polje.PRAZNO) {
+				if(igralna_plosca.getPlosca(i,j) == Polje.PRAZNO) {
 					return true;
 				} 
 			}
@@ -91,7 +91,6 @@ public class Igra {
 	public boolean aliJeKdoZmagal(int a, int b) {
 
 		// (a, b) koordinate polja 
-		
 		int x; // x koordinata polja ki ga preverjamo
 		int y; // y koordinata polja ki ga preverjamo
 		
@@ -100,7 +99,9 @@ public class Igra {
 		
 		for(Vektor v : smeri) {
 			
+
 			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali
+
 			
 			for (int i =  -M; i < M; i++) {
 				x = a + i*v.getX();
@@ -108,7 +109,7 @@ public class Igra {
 				
 				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)) {
 				
-					if(igralna_plošèa.getPlosca(x, y) == na_potezi.getPolje()) {
+					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
 						System.out.println(S);
 						if (S >= M) {

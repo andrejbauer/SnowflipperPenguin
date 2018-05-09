@@ -1,3 +1,4 @@
+package logika;
 
 public class Plosca {
 	// Igralna plošèa je velikosti N x N.

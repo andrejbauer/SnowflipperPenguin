@@ -1,3 +1,4 @@
+package logika;
 
 public class Test_logike_igre {
 

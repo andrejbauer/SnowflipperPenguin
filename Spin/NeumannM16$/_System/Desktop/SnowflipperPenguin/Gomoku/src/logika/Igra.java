@@ -1,3 +1,5 @@
+package logika;
+
 import java.util.LinkedList;
 import java.util.List;
 

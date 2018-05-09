@@ -1,4 +1,5 @@
 package logika;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,7 +102,7 @@ public class Igra {
 		for(Vektor v : smeri) {
 			
 
-			int S = 0; // Koliko smo jih ûe naöli v vrsti/stoplcu/diagonali
+			int S = 0; // Koliko smo jih ≈æe na≈°li v vrsti/stoplcu/diagonali
 
 			
 			for (int i =  -M; i < M; i++) {

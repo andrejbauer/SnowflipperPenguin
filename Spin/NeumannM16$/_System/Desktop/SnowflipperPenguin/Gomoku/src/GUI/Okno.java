@@ -37,6 +37,10 @@ public class Okno extends JFrame implements ActionListener {
 	
 	// Izbire v meniju
 	private JMenuItem nova_igra;
+	private JMenuItem igralec_proti_igralcu;
+	private JMenuItem igralec_proti_racunalniku;
+	private JMenuItem racunalnik_proti_racunalniku;
+	
 	public Okno() {
 		this.setTitle("Gomoku");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,9 +53,17 @@ public class Okno extends JFrame implements ActionListener {
 				JMenu igra_menu = new JMenu("Igra");
 				menu_bar.add(igra_menu);
 				nova_igra = new JMenuItem("Nova igra");
+				igralec_proti_igralcu = new JMenuItem("igralec proti igralcu");
+				igralec_proti_racunalniku =  new JMenuItem("igralec proti racunalniku");
+				racunalnik_proti_racunalniku = new JMenuItem("racunalnik proti racunalniku");
 				igra_menu.add(nova_igra);
+				igra_menu.add(igralec_proti_igralcu);
+				igra_menu.add(igralec_proti_racunalniku);
+				igra_menu.add(racunalnik_proti_racunalniku);
 				nova_igra.addActionListener(this);
-				
+				igralec_proti_igralcu.addActionListener(this);
+				igralec_proti_racunalniku.addActionListener(this);
+				racunalnik_proti_racunalniku.addActionListener(this);
 				
 				
 	// igralno polje
@@ -95,6 +107,22 @@ public class Okno extends JFrame implements ActionListener {
 		if (e.getSource() == nova_igra) {
 			nova_igra();
 		}
+		
+		if (e.getSource() == igralec_proti_igralcu) {
+			System.out.println("pvp");
+			nova_igra();
+		}
+		
+		if (e.getSource() == igralec_proti_racunalniku) {
+			System.out.println("pve");
+			nova_igra();
+		}
+		
+		if (e.getSource() == racunalnik_proti_racunalniku) {
+			System.out.println("eve");
+			nova_igra();
+		}
+		
 		
 	}
 

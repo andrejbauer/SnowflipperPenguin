@@ -51,12 +51,11 @@ public class Igra {
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		if (igralna_plosca.getPlosca(p.getX(),p.getY()) == Polje.PRAZNO) {
+		if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
+			return false;
+		} else {
 			igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
-			
-			System.out.println(na_potezi.getPolje());
-			System.out.println(p.getX());
-			System.out.println(p.getY());
+
 			
 			if(aliJeKdoZmagal(p.getX(), p.getY())) {
 				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
@@ -71,9 +70,6 @@ public class Igra {
 			}
 			
 			return true;
-		}
-		else {
-			return false;
 		}
 	}
 	
@@ -116,7 +112,6 @@ public class Igra {
 				
 					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
-						System.out.println(S);
 						if (S >= M) {
 							return true;
 						}

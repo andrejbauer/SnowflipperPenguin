@@ -31,7 +31,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 	//public IgralnaPlosca(	)
 	public IgralnaPlosca(Okno master) {
 		super();
-		setBackground(Color.white);
+		setBackground(Color.orange);
 		this.master = master;
 		this.addMouseListener(this);
 	}
@@ -45,25 +45,24 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 			return Math.min(getWidth(), getHeight()) / Plosca.N;
 		}
 		
-		private void paintX(Graphics2D g2, int i, int j) {
+		private void paintCrno(Graphics2D g2, int i, int j) {
 			double w = squareWidth();
-			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina X
+			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer X
 			double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 			double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-			g2.setColor(Color.blue);
+			g2.setColor(Color.black);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-			g2.drawLine((int)x, (int)y, (int)(x + r), (int)(y + r));
-			g2.drawLine((int)(x + r), (int)y, (int)x, (int)(y + r));
+			g2.fillOval((int)x, (int)y, (int)r , (int)r);
 		}
 		
-		private void paintO(Graphics2D g2, int i, int j) {
+		private void paintBelo(Graphics2D g2, int i, int j) {
 			double w = squareWidth();
 			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
 			double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 			double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-			g2.setColor(Color.red);
+			g2.setColor(Color.white);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-			g2.drawOval((int)x, (int)y, (int)r , (int)r);
+			g2.fillOval((int)x, (int)y, (int)r , (int)r);
 		}
 		
 		@Override
@@ -92,8 +91,8 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 				for (int i = 0; i < Plosca.N; i++) {
 					for (int j = 0; j < Plosca.N; j++) {
 						switch(plosca[i][j]) {
-						case CRNO: paintX(g2, i, j); break;
-						case BELO: paintO(g2, i, j); break;
+						case CRNO: paintCrno(g2, i, j); break;
+						case BELO: paintBelo(g2, i, j); break;
 						default: break;
 						}
 					}

@@ -36,10 +36,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 		this.addMouseListener(this);
 	}
 	
-		
-		
-		
-		
+
 		@Override
 		public Dimension getPreferredSize() {
 			return new Dimension(400, 400);
@@ -90,46 +87,36 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 			}
 			
 			// križci in krožci
+			Polje[][] plosca = master.getPlosca();
+			if (plosca != null) {
+				for (int i = 0; i < Plosca.N; i++) {
+					for (int j = 0; j < Plosca.N; j++) {
+						switch(plosca[i][j]) {
+						case CRNO: paintX(g2, i, j); break;
+						case BELO: paintO(g2, i, j); break;
+						default: break;
+						}
+					}
+				}
+			}
 				
 		}
 
-		
-		
-		
-		
-		
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		int w = (int)(squareWidth());
+		int i = x / w ;
+		double di = (x % w) / squareWidth() ;
+		int j = y / w ;
+		double dj = (y % w) / squareWidth() ;
+		if (0 <= i && i < Plosca.N &&
+		    0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
+		    0 <= j && j < Plosca.N && 
+		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
+			master.klikNaPolje(i, j);
+		}
 	}
 
 	@Override

@@ -43,6 +43,10 @@ public class Igra {
 		na_potezi = Igralec.CRNI;
 	}
 	
+	public Igra(Igra igra) {
+		this.igralna_plosca.plosca = igra.igralna_plosca.kopirajPlosco();
+		this.na_potezi = igra.na_potezi;
+	}
 
 	// Odigramo potezo.
 	
@@ -56,7 +60,6 @@ public class Igra {
 			
 			if(aliJeKdoZmagal(p.getX(), p.getY())) {
 				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
-				System.exit(1);
 			} else {
 			na_potezi = na_potezi.nasprotnik();
 			}
@@ -102,7 +105,7 @@ public class Igra {
 		for(Vektor v : smeri) {
 			
 
-			int S = 0; // Koliko smo jih ≈æe na≈°li v vrsti/stoplcu/diagonali
+			int S = 0; // Koliko smo jih ûe naöli v vrsti/stoplcu/diagonali
 
 			
 			for (int i =  -M; i < M; i++) {
@@ -125,6 +128,10 @@ public class Igra {
 
 		}
 		return false;
+	}
+
+	public Polje[][] getPlosca() {
+		return igralna_plosca.plosca;
 	}
 	
 }

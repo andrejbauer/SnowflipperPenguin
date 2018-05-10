@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
+import logika.Polje;
+import logika.Poteza;
 
 @SuppressWarnings("serial")
 public class Okno extends JFrame implements ActionListener {
@@ -74,57 +76,50 @@ public class Okno extends JFrame implements ActionListener {
 				status_layout.gridy = 1;
 				status_layout.anchor = GridBagConstraints.CENTER;
 				getContentPane().add(status, status_layout);
-				
-	
 		
-		
-		
-		
-		
-		
-		
+				nova_igra();
 	}
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
+	private void nova_igra() {
+		System.out.println("Zaèeli smo novo igro");
+		this.igra = new Igra();
+		osveziGUI();
+		repaint();
 		
 	}
 
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == nova_igra) {
+			nova_igra();
+		}
+		
+	}
+
+	public void odigraj(Poteza p) {
+		System.out.println("odigrali smo" + p);
+		igra.odigrajPotezo(p);
+		osveziGUI();
+	}
 	
+	public void osveziGUI() {
+		polje.repaint();
+	}
+
+	public Igra kopirajIgro() {
+		return new Igra(igra);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void klikNaPolje(int i, int j) {
+		System.out.println("kliknili smo na polje");
+		odigraj(new Poteza(i, j));
+	}
+
+
+	public Polje[][] getPlosca() {
+		return (igra == null ? null : igra.getPlosca());
+	}
 	
 }

@@ -134,12 +134,12 @@ public class Igra {
 	}
 
 	public Stanje stanje() {
-		if (na_potezi == Igralec.CRNI) {
+		if (!aliObstajaseKaksnaPoteza()) {
+			return Stanje.NEODLOCENO;
+		} else if (na_potezi == Igralec.CRNI) {
 			return Stanje.NA_POTEZI_CRNI;
-		} else if (na_potezi == Igralec.BELI) {
+		} else  {
 			return Stanje.NA_POTEZI_BELI;
-		} else {
-			return Stanje.NEODLOCENO; //tukaj je napak saj zdaj vedno vrne neodloèeno
 		}
 		
 	}

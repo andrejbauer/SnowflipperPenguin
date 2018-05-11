@@ -20,6 +20,7 @@ public class NakljucnePoteze extends SwingWorker<Poteza, Object> {
 	
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.kopirajIgro();
+
 		for (int i = 0; i < 5; i++) {
 			System.out.println("razmišljam...");
 			try {
@@ -35,10 +36,12 @@ public class NakljucnePoteze extends SwingWorker<Poteza, Object> {
 		Random b = new Random();
 		
 		int x = a.nextInt(Plosca.N);
-		int y = a.nextInt(Plosca.N);
+		int y = b.nextInt(Plosca.N);
+		
+		System.out.println(x);
+		System.out.println(y);
 		
 		Poteza poteza = new Poteza(x, y);
-		igra.odigrajPotezo(poteza);
 		return poteza;
 	}
 	

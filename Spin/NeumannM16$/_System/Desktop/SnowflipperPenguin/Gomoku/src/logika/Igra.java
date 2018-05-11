@@ -44,7 +44,12 @@ public class Igra {
 	}
 	
 	public Igra(Igra igra) {
-		this.igralna_plosca.plosca = igra.igralna_plosca.kopirajPlosco();
+		Plosca plosca = new Plosca();
+		for (int i = 0; i < Plosca.N; i++) {
+			for (int j = 0; j < Plosca.N; j++) {
+				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
+			}
+		}
 		this.na_potezi = igra.na_potezi;
 	}
 
@@ -55,7 +60,6 @@ public class Igra {
 			return false;
 		} else {
 			igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
-
 			
 			if(aliJeKdoZmagal(p.getX(), p.getY())) {
 				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
@@ -127,6 +131,17 @@ public class Igra {
 
 	public Polje[][] getPlosca() {
 		return igralna_plosca.plosca;
+	}
+
+	public Stanje stanje() {
+		if (na_potezi == Igralec.CRNI) {
+			return Stanje.NA_POTEZI_CRNI;
+		} else if (na_potezi == Igralec.BELI) {
+			return Stanje.NA_POTEZI_BELI;
+		} else {
+			return Stanje.NEODLOCENO; //tukaj je napak saj zdaj vedno vrne neodloèeno
+		}
+		
 	}
 	
 }

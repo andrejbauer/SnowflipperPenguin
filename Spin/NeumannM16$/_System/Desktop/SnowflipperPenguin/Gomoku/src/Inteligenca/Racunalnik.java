@@ -21,6 +21,7 @@ public class Racunalnik extends Strateg {
 		mislec = new NakljucnePoteze(master);
 		mislec.execute();
 		
+		
 	}
 
 	@Override

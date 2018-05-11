@@ -12,6 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import Inteligenca.Clovek;
+import Inteligenca.Racunalnik;
+import Inteligenca.Strateg;
 import logika.Igra;
 import logika.Polje;
 import logika.Poteza;
@@ -30,6 +33,10 @@ public class Okno extends JFrame implements ActionListener {
 	private JLabel status;
 
 	
+	private Strateg crn_igralec = new Clovek(this); // default na igralec proti igralcu
+	
+	private Strateg bel_igralec = new Clovek(this);	// default na igralec proti igralcu
+	
 	/**
 	 * Logika igre, null èe se igra trenutno ne igra
 	 */
@@ -38,7 +45,9 @@ public class Okno extends JFrame implements ActionListener {
 	// Izbire v meniju
 	private JMenuItem nova_igra;
 	private JMenuItem igralec_proti_igralcu;
-	private JMenuItem igralec_proti_racunalniku;
+//	private JMenuItem igralec_proti_racunalniku;
+	private JMenuItem igraj_kot_beli;
+	private JMenuItem igraj_kot_crni;
 	private JMenuItem racunalnik_proti_racunalniku;
 	
 	public Okno() {
@@ -51,18 +60,25 @@ public class Okno extends JFrame implements ActionListener {
 				JMenuBar menu_bar = new JMenuBar();
 				this.setJMenuBar(menu_bar);
 				JMenu igra_menu = new JMenu("Igra");
+				JMenu igralec_proti_racunalniku = new JMenu("igralec proti racunalniku");
 				menu_bar.add(igra_menu);
 				nova_igra = new JMenuItem("Nova igra");
 				igralec_proti_igralcu = new JMenuItem("igralec proti igralcu");
-				igralec_proti_racunalniku =  new JMenuItem("igralec proti racunalniku");
+//				igralec_proti_racunalniku = new JMenuItem("igralec proti racunalniku");
+				igraj_kot_beli = new JMenuItem("igraj kot beli");
+				igraj_kot_crni = new JMenuItem("igraj kot crni");
 				racunalnik_proti_racunalniku = new JMenuItem("racunalnik proti racunalniku");
 				igra_menu.add(nova_igra);
 				igra_menu.add(igralec_proti_igralcu);
 				igra_menu.add(igralec_proti_racunalniku);
+				igralec_proti_racunalniku.add(igraj_kot_beli);
+				igralec_proti_racunalniku.add(igraj_kot_crni);
 				igra_menu.add(racunalnik_proti_racunalniku);
 				nova_igra.addActionListener(this);
 				igralec_proti_igralcu.addActionListener(this);
 				igralec_proti_racunalniku.addActionListener(this);
+				igraj_kot_beli.addActionListener(this);
+				igraj_kot_crni.addActionListener(this);
 				racunalnik_proti_racunalniku.addActionListener(this);
 				
 				
@@ -94,8 +110,20 @@ public class Okno extends JFrame implements ActionListener {
 		
 
 	private void nova_igra() {
-		System.out.println("Zaèeli smo novo igro");
+		if (bel_igralec != null) { bel_igralec.prekini(); }
+		if (crn_igralec != null) { crn_igralec.prekini(); }
+//		System.out.println("Zaèeli smo novo igro");
 		this.igra = new Igra();
+		
+//		bel_igralec = new Clovek(this);
+//		crn_igralec = new Racunalnik(this);
+		// Tistemu, ki je na potezi, to povemo
+		switch (igra.stanje()) {
+		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
+		case NA_POTEZI_CRNI: crn_igralec.na_potezi(); break;
+		default: break;
+		}
+		
 		osveziGUI();
 		repaint();
 		
@@ -110,16 +138,29 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igralec_proti_igralcu) {
 			System.out.println("pvp");
+			bel_igralec = new Clovek(this);
+			crn_igralec = new Clovek(this);
 			nova_igra();
 		}
 		
-		if (e.getSource() == igralec_proti_racunalniku) {
-			System.out.println("pve");
+		if (e.getSource() == igraj_kot_beli) {
+			System.out.println("beli");
+			bel_igralec = new Clovek(this);
+			crn_igralec = new Racunalnik(this);
+			nova_igra();
+		}
+		
+		if (e.getSource() == igraj_kot_crni) {
+			System.out.println("crni");
+			bel_igralec = new Racunalnik(this);
+			crn_igralec = new Clovek(this);
 			nova_igra();
 		}
 		
 		if (e.getSource() == racunalnik_proti_racunalniku) {
 			System.out.println("eve");
+			bel_igralec = new Racunalnik(this);
+			crn_igralec = new Racunalnik(this);
 			nova_igra();
 		}
 		
@@ -130,6 +171,15 @@ public class Okno extends JFrame implements ActionListener {
 		System.out.println("odigrali smo" + p);
 		igra.odigrajPotezo(p);
 		osveziGUI();
+		System.out.println(igra.stanje());
+		switch (igra.stanje()) {
+		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
+		case NA_POTEZI_CRNI: crn_igralec.na_potezi(); break;
+		case NEODLOCENO: break;
+		case ZMAGA_BELI: break;
+		case ZMAGA_CRNI: break;
+		default: break;
+		}
 	}
 	
 	public void osveziGUI() {

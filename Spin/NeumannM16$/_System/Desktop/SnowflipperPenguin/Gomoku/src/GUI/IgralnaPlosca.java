@@ -98,8 +98,30 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 					}
 				}
 			}
+			
+			System.out.println("rišem");
+			
+			if (Igra.zmagovalna_peterka != null) {
+				System.out.println("nekdo je zmagal");
+				Graphics2D g3 = (Graphics2D)g;
+				// širina kvadratka
+				double z = squareWidth();
+				// èrte
+				g3.setColor(Color.red);
+				g3.setStroke(new BasicStroke((float) (z * LINE_WIDTH)));
+//				for (int i = 1; i < Plosca.N; i++) {
 				
+				System.out.println("Hello");
+				System.out.println(z/2);
+				
+					g3.drawLine((int)(Igra.zmagovalna_peterka.getZacetekX()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getZacetekY()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getKonecY()*z + z/2));
+//			}
 		}
+		}
+		
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

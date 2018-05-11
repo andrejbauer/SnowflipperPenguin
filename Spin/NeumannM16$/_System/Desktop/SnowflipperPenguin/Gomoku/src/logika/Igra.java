@@ -1,5 +1,6 @@
 package logika;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +13,10 @@ public class Igra {
 	// Ustvarimo vektorje s katerimi bomo kasneje preverjali ali imamo 5 v vrsto ali ne.
 	
 	private static final List<Vektor> smeri = new LinkedList<Vektor>();
+	
+	// Zmagovalna peterka
+	
+	public static Peterka zmagovalna_peterka;
 	
 	// Atributi ki jih ima igra.
 	
@@ -41,6 +46,7 @@ public class Igra {
 					igralna_plosca.setPlosca(i,j,Polje.PRAZNO);
 				}
 			}
+		zmagovalna_peterka = null;
 		na_potezi = Igralec.CRNI;
 		stanje = Stanje.NA_POTEZI_CRNI;
 	}
@@ -52,6 +58,7 @@ public class Igra {
 				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
 			}
 		}
+		this.zmagovalna_peterka = igra.zmagovalna_peterka;
 		this.na_potezi = igra.na_potezi;
 		this.stanje = igra.stanje;
 		
@@ -138,6 +145,18 @@ public class Igra {
 							} else {
 								stanje = Stanje.ZMAGA_BELI;
 							}
+							
+							List<Integer> zmagovalna_mnozica_x = new ArrayList<Integer>();
+							List<Integer> zmagovalna_mnozica_y = new ArrayList<Integer>();
+							
+							
+							for (int j = -M + 1; j < 1; j++) {
+								zmagovalna_mnozica_x.add(x + j*v.getX());
+								zmagovalna_mnozica_y.add(y + j*v.getY());
+							}
+							
+							zmagovalna_peterka = new Peterka(zmagovalna_mnozica_x, zmagovalna_mnozica_y);
+							
 							return true;
 						}
 					} else {

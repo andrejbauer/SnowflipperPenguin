@@ -17,6 +17,7 @@ public class Igra {
 	
 	private Plosca igralna_plosca;
 	private Igralec na_potezi;
+	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
 	
@@ -41,6 +42,7 @@ public class Igra {
 				}
 			}
 		na_potezi = Igralec.CRNI;
+		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
 	public Igra(Igra igra) {
@@ -51,30 +53,43 @@ public class Igra {
 			}
 		}
 		this.na_potezi = igra.na_potezi;
+		this.stanje = igra.stanje;
+		
 	}
 
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
-			return false;
-		} else {
-			igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+		if (stanje != Stanje.ZMAGA_BELI && stanje != Stanje.ZMAGA_CRNI) {
 			
-			if(aliJeKdoZmagal(p.getX(), p.getY())) {
-				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
+				return false;
 			} else {
-			na_potezi = na_potezi.nasprotnik();
+				igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+				
+				if(aliJeKdoZmagal(p.getX(), p.getY())) {
+					System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+					
+				} else {
+				na_potezi = na_potezi.nasprotnik();
+				
+				switch (na_potezi) {
+				case CRNI: stanje = Stanje.NA_POTEZI_CRNI; break;
+				case BELI: stanje = Stanje.NA_POTEZI_BELI; break;
+				default: break;
+				}
+				
+				}
+				
+				// Pogledamo ali obstaja se kaka poteza
+				
+				if (!aliObstajaseKaksnaPoteza()) {
+					System.out.println("Igra se je koncala neodloceno");
+				}
 			}
-			
-			// Pogledamo ali obstaja se kaka poteza
-			
-			if (!aliObstajaseKaksnaPoteza()) {
-				System.out.println("Igra se je koncala neodloceno");
-			}
-			
-			return true;
+		return true;
 		}
+		return false;
 	}
 	
 	// Ali obstaja se kaka poteza.
@@ -88,6 +103,7 @@ public class Igra {
 				} 
 			}
 		}
+		stanje = Stanje.NEODLOCENO;
 		return false;
 	}
 	
@@ -117,6 +133,11 @@ public class Igra {
 					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
 						if (S >= M) {
+							if (na_potezi == Igralec.CRNI) {
+								stanje = Stanje.ZMAGA_CRNI;
+							} else {
+								stanje = Stanje.ZMAGA_BELI;
+							}
 							return true;
 						}
 					} else {
@@ -134,13 +155,19 @@ public class Igra {
 	}
 
 	public Stanje stanje() {
-		if (!aliObstajaseKaksnaPoteza()) {
-			return Stanje.NEODLOCENO;
-		} else if (na_potezi == Igralec.CRNI) {
-			return Stanje.NA_POTEZI_CRNI;
-		} else  {
-			return Stanje.NA_POTEZI_BELI;
-		}
+		
+		return stanje;
+		
+//		if (!aliObstajaseKaksnaPoteza()) {
+//			return Stanje.NEODLOCENO;
+//		} else if () {
+		
+		
+//		} else if (na_potezi == Igralec.CRNI) {
+//			return Stanje.NA_POTEZI_CRNI;
+//		} else  {
+//			return Stanje.NA_POTEZI_BELI;
+//		}
 		
 	}
 	

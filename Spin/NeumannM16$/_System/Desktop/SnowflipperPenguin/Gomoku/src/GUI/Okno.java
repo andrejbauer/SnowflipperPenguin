@@ -168,7 +168,6 @@ public class Okno extends JFrame implements ActionListener {
 	}
 
 	public void odigraj(Poteza p) {
-		System.out.println("odigrali smo" + p);
 		igra.odigrajPotezo(p);
 		osveziGUI();
 		System.out.println(igra.stanje());
@@ -183,6 +182,17 @@ public class Okno extends JFrame implements ActionListener {
 	}
 	
 	public void osveziGUI() {
+		if (igra == null) {
+			status.setText("igra se ne izvaja");
+		} else {
+			switch (igra.stanje()) {
+			case NA_POTEZI_BELI: status.setText("Na potezi je beli"); break;
+			case NA_POTEZI_CRNI: status.setText("Na potezi je èrni"); break;
+			case ZMAGA_CRNI: status.setText("Zmagal je èrni"); break;
+			case ZMAGA_BELI: status.setText("Zmagla je beli"); break;
+			case NEODLOCENO: status.setText("igra se je konèala neodloèeno"); break;
+			}
+		}
 		polje.repaint();
 	}
 

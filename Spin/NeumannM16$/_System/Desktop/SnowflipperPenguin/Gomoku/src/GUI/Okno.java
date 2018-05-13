@@ -32,6 +32,7 @@ public class Okno extends JFrame implements ActionListener {
 	 */
 	private JLabel status;
 
+	private KdoJeIgralec kdo_je_igralec = KdoJeIgralec.OBA;
 	
 	private Strateg crn_igralec = new Clovek(this); // default na igralec proti igralcu
 	
@@ -138,6 +139,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igralec_proti_igralcu) {
 			System.out.println("pvp");
+			kdo_je_igralec = KdoJeIgralec.OBA;
 			bel_igralec = new Clovek(this);
 			crn_igralec = new Clovek(this);
 			nova_igra();
@@ -145,6 +147,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igraj_kot_beli) {
 			System.out.println("beli");
+			kdo_je_igralec = KdoJeIgralec.BELI;
 			bel_igralec = new Clovek(this);
 			crn_igralec = new Racunalnik(this);
 			nova_igra();
@@ -152,6 +155,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igraj_kot_crni) {
 			System.out.println("crni");
+			kdo_je_igralec = KdoJeIgralec.CRNI;
 			bel_igralec = new Racunalnik(this);
 			crn_igralec = new Clovek(this);
 			nova_igra();
@@ -159,6 +163,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == racunalnik_proti_racunalniku) {
 			System.out.println("eve");
+			kdo_je_igralec = KdoJeIgralec.NOBEN;
 			bel_igralec = new Racunalnik(this);
 			crn_igralec = new Racunalnik(this);
 			nova_igra();
@@ -202,7 +207,21 @@ public class Okno extends JFrame implements ActionListener {
 	
 	public void klikNaPolje(int i, int j) {
 		System.out.println("kliknili smo na polje");
-		odigraj(new Poteza(i, j));
+//		odigraj(new Poteza(i, j));
+		
+		switch (igra.stanje()) {
+		case NA_POTEZI_BELI:
+			if (kdo_je_igralec == KdoJeIgralec.BELI || kdo_je_igralec == KdoJeIgralec.OBA) {
+				odigraj(new Poteza(i, j));
+			}
+			break;
+		case NA_POTEZI_CRNI:
+			if (kdo_je_igralec == KdoJeIgralec.CRNI || kdo_je_igralec == KdoJeIgralec.OBA) {
+				odigraj(new Poteza(i, j));
+			}
+			break;
+		default: break;
+		}
 	}
 
 

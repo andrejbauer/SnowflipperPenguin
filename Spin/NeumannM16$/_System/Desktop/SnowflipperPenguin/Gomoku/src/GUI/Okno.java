@@ -23,7 +23,7 @@ import logika.Poteza;
 public class Okno extends JFrame implements ActionListener {
 	
 	/**
-	 * JPanel, v katerega riöemo X in O
+	 * JPanel, v katerega ri≈°emo X in O
 	 */
 	private IgralnaPlosca polje;
 
@@ -32,13 +32,14 @@ public class Okno extends JFrame implements ActionListener {
 	 */
 	private JLabel status;
 
+	private KdoJeIgralec kdo_je_igralec = KdoJeIgralec.OBA;
 	
 	private Strateg crn_igralec = new Clovek(this); // default na igralec proti igralcu
 	
 	private Strateg bel_igralec = new Clovek(this);	// default na igralec proti igralcu
 	
 	/**
-	 * Logika igre, null Ëe se igra trenutno ne igra
+	 * Logika igre, null ƒçe se igra trenutno ne igra
 	 */
 	private Igra igra;
 	
@@ -60,14 +61,14 @@ public class Okno extends JFrame implements ActionListener {
 				JMenuBar menu_bar = new JMenuBar();
 				this.setJMenuBar(menu_bar);
 				JMenu igra_menu = new JMenu("Igra");
-				JMenu igralec_proti_racunalniku = new JMenu("igralec proti racunalniku");
+				JMenu igralec_proti_racunalniku = new JMenu("igralec proti raƒçunalniku");
 				menu_bar.add(igra_menu);
 				nova_igra = new JMenuItem("Nova igra");
 				igralec_proti_igralcu = new JMenuItem("igralec proti igralcu");
-//				igralec_proti_racunalniku = new JMenuItem("igralec proti racunalniku");
+//				igralec_proti_racunalniku = new JMenuItem("igralec proti raƒçunalniku");
 				igraj_kot_beli = new JMenuItem("igraj kot beli");
 				igraj_kot_crni = new JMenuItem("igraj kot crni");
-				racunalnik_proti_racunalniku = new JMenuItem("racunalnik proti racunalniku");
+				racunalnik_proti_racunalniku = new JMenuItem("raƒçunalnik proti raƒçunalniku");
 				igra_menu.add(nova_igra);
 				igra_menu.add(igralec_proti_igralcu);
 				igra_menu.add(igralec_proti_racunalniku);
@@ -94,7 +95,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 				
 				
-	// statusna vrstica za sporoËila
+	// statusna vrstica za sporoƒçila
 				status = new JLabel();
 				status.setFont(new Font(status.getFont().getName(),
 									    status.getFont().getStyle(),
@@ -112,7 +113,7 @@ public class Okno extends JFrame implements ActionListener {
 	private void nova_igra() {
 		if (bel_igralec != null) { bel_igralec.prekini(); }
 		if (crn_igralec != null) { crn_igralec.prekini(); }
-//		System.out.println("ZaËeli smo novo igro");
+//		System.out.println("Zaƒçeli smo novo igro");
 		this.igra = new Igra();
 		
 //		bel_igralec = new Clovek(this);
@@ -138,6 +139,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igralec_proti_igralcu) {
 			System.out.println("pvp");
+			kdo_je_igralec = KdoJeIgralec.OBA;
 			bel_igralec = new Clovek(this);
 			crn_igralec = new Clovek(this);
 			nova_igra();
@@ -145,6 +147,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igraj_kot_beli) {
 			System.out.println("beli");
+			kdo_je_igralec = KdoJeIgralec.BELI;
 			bel_igralec = new Clovek(this);
 			crn_igralec = new Racunalnik(this);
 			nova_igra();
@@ -152,6 +155,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == igraj_kot_crni) {
 			System.out.println("crni");
+			kdo_je_igralec = KdoJeIgralec.CRNI;
 			bel_igralec = new Racunalnik(this);
 			crn_igralec = new Clovek(this);
 			nova_igra();
@@ -159,6 +163,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		if (e.getSource() == racunalnik_proti_racunalniku) {
 			System.out.println("eve");
+			kdo_je_igralec = KdoJeIgralec.NOBEN;
 			bel_igralec = new Racunalnik(this);
 			crn_igralec = new Racunalnik(this);
 			nova_igra();
@@ -187,10 +192,10 @@ public class Okno extends JFrame implements ActionListener {
 		} else {
 			switch (igra.stanje()) {
 			case NA_POTEZI_BELI: status.setText("Na potezi je beli"); break;
-			case NA_POTEZI_CRNI: status.setText("Na potezi je Ërni"); break;
-			case ZMAGA_CRNI: status.setText("Zmagal je Ërni"); break;
+			case NA_POTEZI_CRNI: status.setText("Na potezi je ƒçrni"); break;
+			case ZMAGA_CRNI: status.setText("Zmagal je ƒçrni"); break;
 			case ZMAGA_BELI: status.setText("Zmagla je beli"); break;
-			case NEODLOCENO: status.setText("igra se je konËala neodloËeno"); break;
+			case NEODLOCENO: status.setText("igra se je konƒçala neodloƒçeno"); break;
 			}
 		}
 		polje.repaint();
@@ -202,7 +207,21 @@ public class Okno extends JFrame implements ActionListener {
 	
 	public void klikNaPolje(int i, int j) {
 		System.out.println("kliknili smo na polje");
-		odigraj(new Poteza(i, j));
+//		odigraj(new Poteza(i, j));
+		
+		switch (igra.stanje()) {
+		case NA_POTEZI_BELI:
+			if (kdo_je_igralec == KdoJeIgralec.BELI || kdo_je_igralec == KdoJeIgralec.OBA) {
+				odigraj(new Poteza(i, j));
+			}
+			break;
+		case NA_POTEZI_CRNI:
+			if (kdo_je_igralec == KdoJeIgralec.CRNI || kdo_je_igralec == KdoJeIgralec.OBA) {
+				odigraj(new Poteza(i, j));
+			}
+			break;
+		default: break;
+		}
 	}
 
 

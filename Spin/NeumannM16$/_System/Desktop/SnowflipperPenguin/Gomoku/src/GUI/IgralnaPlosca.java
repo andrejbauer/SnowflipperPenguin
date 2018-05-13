@@ -19,7 +19,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 	private Okno master;
 	
 	/**
-	 * Relativna širina èrte
+	 * Relativna  viÅ¡irina Ärte
 	 */
 	private final static double LINE_WIDTH = 0.1;
 	
@@ -39,7 +39,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(400, 400);
+			return new Dimension(800, 800);
 	}
 		private double squareWidth() {
 			return Math.min(getWidth(), getHeight()) / Plosca.N;
@@ -69,9 +69,9 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-			// širina kvadratka
+			// Å¡irina kvadratka
 			double w = squareWidth();
-			// èrte
+			// Ärte
 			g2.setColor(Color.black);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 			for (int i = 1; i < Plosca.N; i++) {
@@ -85,7 +85,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 						    (int)(i * w));
 			}
 			
-			// križci in krožci
+			// kriÅ¾ci in kroÅ¾ci
 			Polje[][] plosca = master.getPlosca();
 			if (plosca != null) {
 				for (int i = 0; i < Plosca.N; i++) {
@@ -99,14 +99,14 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 				}
 			}
 			
-			System.out.println("rišem");
+			System.out.println("riÅ¡em");
 			
 			if (Igra.zmagovalna_peterka != null) {
 				System.out.println("nekdo je zmagal");
 				Graphics2D g3 = (Graphics2D)g;
-				// širina kvadratka
+				// Å¡irina kvadratka
 				double z = squareWidth();
-				// èrte
+				// Ärte
 				g3.setColor(Color.red);
 				g3.setStroke(new BasicStroke((float) (z * LINE_WIDTH)));
 //				for (int i = 1; i < Plosca.N; i++) {

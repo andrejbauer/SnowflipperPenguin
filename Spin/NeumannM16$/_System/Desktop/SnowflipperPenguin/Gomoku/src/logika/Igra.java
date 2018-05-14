@@ -26,7 +26,7 @@ public class Igra {
 	
 	// Dodamo vektorje za preverajanje
 	
-	{
+	static {
 	
 		smeri.add(new Vektor(0, 1));
 		smeri.add(new Vektor(1, 1));

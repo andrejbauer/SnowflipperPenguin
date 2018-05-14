@@ -24,7 +24,7 @@ public class NakljucnePoteze extends SwingWorker<Poteza, Object> {
 		for (int i = 0; i < 5; i++) {
 			System.out.println("razmišljam...");
 			try {
-				Thread.sleep(200);
+				Thread.sleep(5);
 			} catch (InterruptedException e) { }
 			if (this.isCancelled()) {
 				System.out.println("nihaj");

@@ -2,22 +2,25 @@ package Inteligenca;
 
 import java.util.Random;
 
-import GUI.okno;
+import javax.swing.SwingWorker;
+
+import GUI.Okno;
 import logika.Igra;
 import logika.Plosca;
 import logika.Poteza;
 
-public class NakljucnePoteze {
+public class NakljucnePoteze extends SwingWorker<Poteza, Object> {
 
-	private okno master;
+	private Okno master;
 
-	public NakljucnePoteze(okno master) {
+	public NakljucnePoteze(Okno master) {
 		super();
 		this.master = master;
 	}
 	
 	protected Poteza doInBackground() throws Exception {
-		Igra igra = master.copyIgra();
+		Igra igra = master.kopirajIgro();
+
 		for (int i = 0; i < 5; i++) {
 			System.out.println("razmišljam...");
 			try {
@@ -33,10 +36,12 @@ public class NakljucnePoteze {
 		Random b = new Random();
 		
 		int x = a.nextInt(Plosca.N);
-		int y = a.nextInt(Plosca.N);
+		int y = b.nextInt(Plosca.N);
+		
+		System.out.println(x);
+		System.out.println(y);
 		
 		Poteza poteza = new Poteza(x, y);
-		igra.odigrajPotezo(poteza);
 		return poteza;
 	}
 	

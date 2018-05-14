@@ -1,5 +1,6 @@
 package logika;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,10 +14,15 @@ public class Igra {
 	
 	private static final List<Vektor> smeri = new LinkedList<Vektor>();
 	
+	// Zmagovalna peterka
+	
+	public static Peterka zmagovalna_peterka;
+	
 	// Atributi ki jih ima igra.
 	
 	private Plosca igralna_plosca;
 	private Igralec na_potezi;
+	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
 	
@@ -40,38 +46,57 @@ public class Igra {
 					igralna_plosca.setPlosca(i,j,Polje.PRAZNO);
 				}
 			}
+		zmagovalna_peterka = null;
 		na_potezi = Igralec.CRNI;
+		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
+	public Igra(Igra igra) {
+		Plosca plosca = new Plosca();
+		for (int i = 0; i < Plosca.N; i++) {
+			for (int j = 0; j < Plosca.N; j++) {
+				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
+			}
+		}
+		this.zmagovalna_peterka = igra.zmagovalna_peterka;
+		this.na_potezi = igra.na_potezi;
+		this.stanje = igra.stanje;
+		
+	}
 
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		if (igralna_plosca.getPlosca(p.getX(),p.getY()) == Polje.PRAZNO) {
-			igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+		if (stanje != Stanje.ZMAGA_BELI && stanje != Stanje.ZMAGA_CRNI) {
 			
-			System.out.println(na_potezi.getPolje());
-			System.out.println(p.getX());
-			System.out.println(p.getY());
-			
-			if(aliJeKdoZmagal(p.getX(), p.getY())) {
-				System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
-				System.exit(1);
+			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
+				return false;
 			} else {
-			na_potezi = na_potezi.nasprotnik();
+				igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+				
+				if(aliJeKdoZmagal(p.getX(), p.getY())) {
+					System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+					
+				} else {
+				na_potezi = na_potezi.nasprotnik();
+				
+				switch (na_potezi) {
+				case CRNI: stanje = Stanje.NA_POTEZI_CRNI; break;
+				case BELI: stanje = Stanje.NA_POTEZI_BELI; break;
+				default: break;
+				}
+				
+				}
+				
+				// Pogledamo ali obstaja se kaka poteza
+				
+				if (!aliObstajaseKaksnaPoteza()) {
+					System.out.println("Igra se je koncala neodloceno");
+				}
 			}
-			
-			// Pogledamo ali obstaja se kaka poteza
-			
-			if (!aliObstajaseKaksnaPoteza()) {
-				System.out.println("Igra se je koncala neodloceno");
-			}
-			
-			return true;
+		return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	// Ali obstaja se kaka poteza.
@@ -85,6 +110,7 @@ public class Igra {
 				} 
 			}
 		}
+		stanje = Stanje.NEODLOCENO;
 		return false;
 	}
 	
@@ -102,7 +128,7 @@ public class Igra {
 		for(Vektor v : smeri) {
 			
 
-			int S = 0; // Koliko smo jih Å¾e naÅ¡li v vrsti/stoplcu/diagonali
+			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali
 
 			
 			for (int i =  -M; i < M; i++) {
@@ -113,8 +139,24 @@ public class Igra {
 				
 					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
-						System.out.println(S);
 						if (S >= M) {
+							if (na_potezi == Igralec.CRNI) {
+								stanje = Stanje.ZMAGA_CRNI;
+							} else {
+								stanje = Stanje.ZMAGA_BELI;
+							}
+							
+							List<Integer> zmagovalna_mnozica_x = new ArrayList<Integer>();
+							List<Integer> zmagovalna_mnozica_y = new ArrayList<Integer>();
+							
+							
+							for (int j = -M + 1; j < 1; j++) {
+								zmagovalna_mnozica_x.add(x + j*v.getX());
+								zmagovalna_mnozica_y.add(y + j*v.getY());
+							}
+							
+							zmagovalna_peterka = new Peterka(zmagovalna_mnozica_x, zmagovalna_mnozica_y);
+							
 							return true;
 						}
 					} else {
@@ -125,6 +167,27 @@ public class Igra {
 
 		}
 		return false;
+	}
+
+	public Polje[][] getPlosca() {
+		return igralna_plosca.plosca;
+	}
+
+	public Stanje stanje() {
+		
+		return stanje;
+		
+//		if (!aliObstajaseKaksnaPoteza()) {
+//			return Stanje.NEODLOCENO;
+//		} else if () {
+		
+		
+//		} else if (na_potezi == Igralec.CRNI) {
+//			return Stanje.NA_POTEZI_CRNI;
+//		} else  {
+//			return Stanje.NA_POTEZI_BELI;
+//		}
+		
 	}
 	
 }

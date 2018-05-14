@@ -19,7 +19,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 	private Okno master;
 	
 	/**
-	 * Relativna �irina �rte
+	 * Relativna  viširina črte
 	 */
 	private final static double LINE_WIDTH = 0.1;
 	
@@ -31,51 +31,47 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 	//public IgralnaPlosca(	)
 	public IgralnaPlosca(Okno master) {
 		super();
-		setBackground(Color.white);
+		setBackground(Color.orange);
 		this.master = master;
 		this.addMouseListener(this);
 	}
 	
-		
-		
-		
-		
+
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(400, 400);
+			return new Dimension(800, 800);
 	}
 		private double squareWidth() {
 			return Math.min(getWidth(), getHeight()) / Plosca.N;
 		}
 		
-		private void paintX(Graphics2D g2, int i, int j) {
+		private void paintCrno(Graphics2D g2, int i, int j) {
 			double w = squareWidth();
-			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina X
+			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer X
 			double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 			double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-			g2.setColor(Color.blue);
+			g2.setColor(Color.black);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-			g2.drawLine((int)x, (int)y, (int)(x + r), (int)(y + r));
-			g2.drawLine((int)(x + r), (int)y, (int)x, (int)(y + r));
+			g2.fillOval((int)x, (int)y, (int)r , (int)r);
 		}
 		
-		private void paintO(Graphics2D g2, int i, int j) {
+		private void paintBelo(Graphics2D g2, int i, int j) {
 			double w = squareWidth();
 			double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
 			double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 			double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-			g2.setColor(Color.red);
+			g2.setColor(Color.white);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-			g2.drawOval((int)x, (int)y, (int)r , (int)r);
+			g2.fillOval((int)x, (int)y, (int)r , (int)r);
 		}
 		
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-			// �irina kvadratka
+			// širina kvadratka
 			double w = squareWidth();
-			// �rte
+			// črte
 			g2.setColor(Color.black);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 			for (int i = 1; i < Plosca.N; i++) {
@@ -89,47 +85,59 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 						    (int)(i * w));
 			}
 			
-			// kri�ci in kro�ci
+			// križci in krožci
+			Polje[][] plosca = master.getPlosca();
+			if (plosca != null) {
+				for (int i = 0; i < Plosca.N; i++) {
+					for (int j = 0; j < Plosca.N; j++) {
+						switch(plosca[i][j]) {
+						case CRNO: paintCrno(g2, i, j); break;
+						case BELO: paintBelo(g2, i, j); break;
+						default: break;
+						}
+					}
+				}
+			}
+			
+			System.out.println("rišem");
+			
+			if (Igra.zmagovalna_peterka != null) {
+				System.out.println("nekdo je zmagal");
+				Graphics2D g3 = (Graphics2D)g;
+				// širina kvadratka
+				double z = squareWidth();
+				// črte
+				g3.setColor(Color.red);
+				g3.setStroke(new BasicStroke((float) (z * LINE_WIDTH)));
+//				for (int i = 1; i < Plosca.N; i++) {
 				
+				System.out.println("Hello");
+				System.out.println(z/2);
+				
+					g3.drawLine((int)(Igra.zmagovalna_peterka.getZacetekX()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getZacetekY()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),
+							    (int)(Igra.zmagovalna_peterka.getKonecY()*z + z/2));
+//			}
 		}
-
+		}
 		
-		
-		
-		
-		
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		int w = (int)(squareWidth());
+		int i = x / w ;
+		double di = (x % w) / squareWidth() ;
+		int j = y / w ;
+		double dj = (y % w) / squareWidth() ;
+		if (0 <= i && i < Plosca.N &&
+		    0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
+		    0 <= j && j < Plosca.N && 
+		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
+			master.klikNaPolje(i, j);
+		}
 	}
 
 	@Override

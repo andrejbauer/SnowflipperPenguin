@@ -22,16 +22,23 @@ public class Plosca {
 	
 	//Dobimo vsebino polja na koordinatah (x,y)
 	
-	public Polje getPlosca(int x,int y) {
+	public Polje getPlosca(int x, int y) {
 		
 		return plosca[x][y];
 	}
 	
 	// Nastavimo vsebino polja na koordinatah (x,y)
 	
-	public void setPlosca(int x,int y, Polje f) {
+	public void setPlosca(int x, int y, Polje f) {
 		
 		plosca[x][y]=f;
+	}
+	
+	public int ocenaPlosce(Igralec naPotezi) {
+		
+		
+		
+		return 42;
 	}
 
 }

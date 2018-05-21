@@ -20,7 +20,7 @@ public class Igra {
 	
 	// Atributi ki jih ima igra.
 	
-	private Plosca igralna_plosca;
+	public Plosca igralna_plosca;
 //	private Igralec na_potezi;
 	private Stanje stanje;
 	
@@ -196,7 +196,7 @@ public class Igra {
 		return moznePoteze;
 	}
 	
-	private Igralec naPotezi() {
+	public Igralec naPotezi() {
 		if(stanje == stanje.NA_POTEZI_BELI){
 			return Igralec.BELI;
 		} else {

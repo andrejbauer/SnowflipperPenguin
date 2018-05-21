@@ -99,8 +99,6 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 				}
 			}
 			
-			System.out.println("rišem");
-			
 			if (Igra.zmagovalna_peterka != null) {
 				System.out.println("nekdo je zmagal");
 				Graphics2D g3 = (Graphics2D)g;

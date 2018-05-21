@@ -173,6 +173,9 @@ public class Okno extends JFrame implements ActionListener {
 	}
 
 	public void odigraj(Poteza p) {
+		
+		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+		
 		igra.odigrajPotezo(p);
 		osveziGUI();
 		System.out.println(igra.stanje());
@@ -206,9 +209,7 @@ public class Okno extends JFrame implements ActionListener {
 	}
 	
 	public void klikNaPolje(int i, int j) {
-		System.out.println("kliknili smo na polje");
-//		odigraj(new Poteza(i, j));
-		
+
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI:
 			if (kdo_je_igralec == KdoJeIgralec.BELI || kdo_je_igralec == KdoJeIgralec.OBA) {

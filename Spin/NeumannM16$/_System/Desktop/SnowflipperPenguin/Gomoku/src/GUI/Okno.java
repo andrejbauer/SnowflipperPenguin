@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import Inteligenca.Clovek;
+import Inteligenca.Ocena;
 import Inteligenca.Racunalnik;
 import Inteligenca.Strateg;
 import logika.Igra;
@@ -173,8 +174,10 @@ public class Okno extends JFrame implements ActionListener {
 	}
 
 	public void odigraj(Poteza p) {
+		Ocena.oceniSmer(igra.igralna_plosca, igra.na_potezi, p.getX(), p.getY());
 		igra.odigrajPotezo(p);
 		osveziGUI();
+		
 		System.out.println(igra.stanje());
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;

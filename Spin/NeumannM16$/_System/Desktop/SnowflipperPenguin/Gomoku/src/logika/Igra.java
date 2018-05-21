@@ -12,7 +12,7 @@ public class Igra {
 	
 	// Ustvarimo vektorje s katerimi bomo kasneje preverjali ali imamo 5 v vrsto ali ne.
 	
-	private static final List<Vektor> smeri = new LinkedList<Vektor>();
+	
 	
 	// Zmagovalna peterka
 	
@@ -20,21 +20,13 @@ public class Igra {
 	
 	// Atributi ki jih ima igra.
 	
-	private Plosca igralna_plosca;
-	private Igralec na_potezi;
+	public Plosca igralna_plosca;
+	public Igralec na_potezi;
 	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
 	
-	static {
-	
-		smeri.add(new Vektor(0, 1));
-		smeri.add(new Vektor(1, 1));
-		smeri.add(new Vektor(1, 0));
-		smeri.add(new Vektor(1, -1));
-	
-	}
-	
+
 	// Ustvarimo novo igralno plosco dimenzije N x N.
 	// z i oznacimo stolpce, z j pa vrstice.
 	
@@ -125,7 +117,7 @@ public class Igra {
 		
 		// vektorji (0, 1), (1, 1), (1, 0), (1, -1)
 		
-		for(Vektor v : smeri) {
+		for(Vektor v : Smeri.smeri) {
 			
 
 			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali

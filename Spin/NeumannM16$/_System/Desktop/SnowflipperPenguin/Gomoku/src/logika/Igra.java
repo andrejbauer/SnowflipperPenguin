@@ -21,7 +21,7 @@ public class Igra {
 	// Atributi ki jih ima igra.
 	
 	private Plosca igralna_plosca;
-	private Igralec na_potezi;
+//	private Igralec na_potezi;
 	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
@@ -47,7 +47,7 @@ public class Igra {
 				}
 			}
 		zmagovalna_peterka = null;
-		na_potezi = Igralec.CRNI;
+//		na_potezi = Igralec.CRNI;
 		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
@@ -59,7 +59,7 @@ public class Igra {
 			}
 		}
 		this.zmagovalna_peterka = igra.zmagovalna_peterka;
-		this.na_potezi = igra.na_potezi;
+//		this.na_potezi = igra.na_potezi;
 		this.stanje = igra.stanje;
 		
 	}
@@ -67,6 +67,15 @@ public class Igra {
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
+		Igralec na_potezi;
+		
+		if(stanje == stanje.NA_POTEZI_BELI){
+			na_potezi = Igralec.BELI;
+		} else {
+			na_potezi = Igralec.CRNI;
+		}
+		
+		
 		if (stanje != Stanje.ZMAGA_BELI && stanje != Stanje.ZMAGA_CRNI) {
 			
 			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
@@ -126,6 +135,13 @@ public class Igra {
 		// vektorji (0, 1), (1, 1), (1, 0), (1, -1)
 		
 		for(Vektor v : smeri) {
+			Igralec na_potezi;
+			
+			if(stanje == stanje.NA_POTEZI_BELI){
+				na_potezi = Igralec.BELI;
+			} else {
+				na_potezi = Igralec.CRNI;
+			}
 			
 
 			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali
@@ -140,7 +156,7 @@ public class Igra {
 					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
 						S++;
 						if (S >= M) {
-							if (na_potezi == Igralec.CRNI) {
+							if (stanje == stanje.NA_POTEZI_CRNI) {
 								stanje = Stanje.ZMAGA_CRNI;
 							} else {
 								stanje = Stanje.ZMAGA_BELI;
@@ -174,20 +190,21 @@ public class Igra {
 	}
 
 	public Stanje stanje() {
-		
-		return stanje;
-		
-//		if (!aliObstajaseKaksnaPoteza()) {
-//			return Stanje.NEODLOCENO;
-//		} else if () {
-		
-		
-//		} else if (na_potezi == Igralec.CRNI) {
-//			return Stanje.NA_POTEZI_CRNI;
-//		} else  {
-//			return Stanje.NA_POTEZI_BELI;
-//		}
-		
+		return stanje;	
 	}
+	
+	public LinkedList<Polje> moznePoteze(){
+		LinkedList<Polje> moznePoteze = new LinkedList<Polje>();
+		
+		for (int i = 0; i < Plosca.N; i++) {
+			for (int j = 0; j < Plosca.N; j++) {
+				if(igralna_plosca.getPlosca(i,j) == Polje.PRAZNO) {
+					moznePoteze.add(igralna_plosca.getPlosca(i, j));
+				} 
+			}
+		}
+		return moznePoteze;
+	}
+	
 	
 }

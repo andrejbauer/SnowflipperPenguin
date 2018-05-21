@@ -67,32 +67,24 @@ public class Igra {
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
-		Igralec na_potezi;
-		
-		if(stanje == stanje.NA_POTEZI_BELI){
-			na_potezi = Igralec.BELI;
-		} else {
-			na_potezi = Igralec.CRNI;
-		}
-		
 		
 		if (stanje != Stanje.ZMAGA_BELI && stanje != Stanje.ZMAGA_CRNI) {
 			
 			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
 				return false;
 			} else {
-				igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+				igralna_plosca.setPlosca(p.getX(),p.getY(),naPotezi().getPolje());
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
-					System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");
 					
 				} else {
-				na_potezi = na_potezi.nasprotnik();
 				
-				switch (na_potezi) {
-				case CRNI: stanje = Stanje.NA_POTEZI_CRNI; break;
-				case BELI: stanje = Stanje.NA_POTEZI_BELI; break;
+				switch (naPotezi()) {
+				case CRNI: stanje = Stanje.NA_POTEZI_BELI; break;
+				case BELI: stanje = Stanje.NA_POTEZI_CRNI; break;
 				default: break;
+				
 				}
 				
 				}
@@ -141,14 +133,6 @@ public class Igra {
 		// vektorji (0, 1), (1, 1), (1, 0), (1, -1)
 		
 		for(Vektor v : smeri) {
-			Igralec na_potezi;
-			
-			if(stanje == stanje.NA_POTEZI_BELI){
-				na_potezi = Igralec.BELI;
-			} else {
-				na_potezi = Igralec.CRNI;
-			}
-			
 
 			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali
 
@@ -159,7 +143,7 @@ public class Igra {
 				
 				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)) {
 				
-					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
+					if(igralna_plosca.getPlosca(x, y) == naPotezi().getPolje()) {
 						S++;
 						if (S >= M) {
 							if (stanje == stanje.NA_POTEZI_CRNI) {
@@ -212,5 +196,12 @@ public class Igra {
 		return moznePoteze;
 	}
 	
+	private Igralec naPotezi() {
+		if(stanje == stanje.NA_POTEZI_BELI){
+			return Igralec.BELI;
+		} else {
+			return Igralec.CRNI;
+		}
+	}
 	
 }

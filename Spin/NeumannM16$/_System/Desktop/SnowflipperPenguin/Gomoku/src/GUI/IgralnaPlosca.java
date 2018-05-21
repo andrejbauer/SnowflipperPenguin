@@ -39,7 +39,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(800, 800);
+			return new Dimension(500, 500);
 	}
 		private double squareWidth() {
 			return Math.min(getWidth(), getHeight()) / Plosca.N;

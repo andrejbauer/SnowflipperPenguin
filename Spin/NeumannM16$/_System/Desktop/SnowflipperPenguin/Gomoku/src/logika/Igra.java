@@ -119,7 +119,13 @@ public class Igra {
 				} 
 			}
 		}
-		stanje = Stanje.NEODLOCENO;
+		
+		switch (stanje) {
+		case ZMAGA_CRNI: break;
+		case ZMAGA_BELI: break;
+		default: stanje = Stanje.NEODLOCENO;
+		} 
+
 		return false;
 	}
 	

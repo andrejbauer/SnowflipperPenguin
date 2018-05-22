@@ -185,14 +185,10 @@ public class Igra {
 	
 	public LinkedList<Poteza> moznePoteze(){
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
-		System.out.println("mozne poteze");
 		
 		for (int i = 0; i < Plosca.N; i++) {
 			for (int j = 0; j < Plosca.N; j++) {
-				System.out.println(igralna_plosca);
 				if(igralna_plosca.getPlosca(i, j) == Polje.PRAZNO) {
-					System.out.println(i);
-					System.out.println(j);
 					moznePoteze.add(new Poteza(i, j));
 				} 
 			}

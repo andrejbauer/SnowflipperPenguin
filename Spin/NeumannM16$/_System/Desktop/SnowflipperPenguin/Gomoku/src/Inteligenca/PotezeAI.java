@@ -1,5 +1,6 @@
 package Inteligenca;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -21,12 +22,10 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.kopirajIgro();
-		System.out.println(igra);
-		System.out.println(igra.moznePoteze());
-//		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
 		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1; i++) {
 			System.out.println("razmišljam...");
 			try {
 				Thread.sleep(5);
@@ -37,28 +36,30 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 			}
 		}
 		
+//		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
 		
-//		for (Poteza p : moznePoteze) {
-//			igra.odigrajPotezo(p);
-//			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-//			System.out.println(vseOcene);
-//			igra = master.kopirajIgro();
-//		}
-//		System.out.println(vseOcene);
+		for (Poteza p : moznePoteze) {
+//			System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+			igra.odigrajPotezo(p);
+//			System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+			igra = master.kopirajIgro();
+		}
+		System.out.println(vseOcene);
 		
+		int maxOcena = Collections.max(vseOcene);
 		
+		int minOcena = Collections.min(vseOcene);
 		
-		System.out.println("sem");
+		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
+	
 		Random a = new Random();
 		Random b = new Random();
 		
 		int x = a.nextInt(Plosca.N);
 		int y = b.nextInt(Plosca.N);
 		
-		System.out.println(x);
-		System.out.println(y);
-		
-		Poteza poteza = new Poteza(x, y);
+//		Poteza poteza = new Poteza(x, y);
 		return poteza;
 	}
 	

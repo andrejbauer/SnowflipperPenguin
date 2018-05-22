@@ -45,12 +45,14 @@ public class Plosca {
 		odprte_n_terice.put(2, 0);
 		odprte_n_terice.put(3, 0);
 		odprte_n_terice.put(4, 0);
+		odprte_n_terice.put(5, 0);
 
 		pol_odprte_n_terice.put(0, 0);
 		pol_odprte_n_terice.put(1, 0);
 		pol_odprte_n_terice.put(2, 0);
 		pol_odprte_n_terice.put(3, 0);
 		pol_odprte_n_terice.put(4, 0);
+		pol_odprte_n_terice.put(5, 0);
 		
 		// Navpièe n terice
 		
@@ -278,11 +280,11 @@ public class Plosca {
 		int ocena = 0;
 		
 		for(int i : odprte_n_terice.keySet()) {
-			ocena += odprte_n_terice.get(i)*i;
+			ocena += odprte_n_terice.get(i)*i*i;
 		}
 		
 		for (int i : pol_odprte_n_terice.keySet()) {
-			ocena += pol_odprte_n_terice.get(i)*i/2;
+			ocena += pol_odprte_n_terice.get(i)*i*i/2;
 		}
 		
 		return ocena;

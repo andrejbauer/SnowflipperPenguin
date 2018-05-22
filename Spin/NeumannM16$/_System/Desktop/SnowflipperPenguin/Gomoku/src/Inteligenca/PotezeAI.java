@@ -1,66 +1,61 @@
 package Inteligenca;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Random;
-
 import javax.swing.SwingWorker;
-
 import GUI.Okno;
 import logika.Igra;
-import logika.Plosca;
+import logika.Igralec;
 import logika.Poteza;
 
 public class PotezeAI extends SwingWorker<Poteza, Object> {
 
 	private Okno master;
+	
+	private int globina;
+	
+	private Igralec kogaIgramo;
 
-	public PotezeAI(Okno master) {
+	public PotezeAI(Okno master, int globina, Igralec kogaIgramo) {
 		super();
 		this.master = master;
+		this.globina = globina;
+		this.kogaIgramo = kogaIgramo;
 	}
 	
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.kopirajIgro();
-		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
-		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
+		OcenjenaPoteza p = minMax(0, igra);
+		assert (p.poteza != null);
+		return p.poteza;
+		
+//		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+//		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
 
-		for (int i = 0; i < 1; i++) {
-			System.out.println("razmišljam...");
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) { }
-			if (this.isCancelled()) {
-				System.out.println("nihaj");
-				return null;
-			}
-		}
+//		for (int i = 0; i < 1; i++) {
+//			System.out.println("razmišljam...");
+//			try {
+//				Thread.sleep(5);
+//			} catch (InterruptedException e) { }
+//			if (this.isCancelled()) {
+//				System.out.println("nihaj");
+//				return null;
+//			}
+//		}
+				
+//		for (Poteza p : moznePoteze) {
+//			igra.odigrajPotezo(p);
+//			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+//			int minOcena = Collections.min(vseOcene);
+//			igra = master.kopirajIgro();
+//		}
+//		System.out.println(vseOcene);
 		
-//		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+//		int maxOcena = Collections.max(vseOcene);
 		
-		for (Poteza p : moznePoteze) {
-//			System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-			igra.odigrajPotezo(p);
-//			System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-			igra = master.kopirajIgro();
-		}
-		System.out.println(vseOcene);
+//		int minOcena = Collections.min(vseOcene);
 		
-		int maxOcena = Collections.max(vseOcene);
-		
-		int minOcena = Collections.min(vseOcene);
-		
-		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
-	
-		Random a = new Random();
-		Random b = new Random();
-		
-		int x = a.nextInt(Plosca.N);
-		int y = b.nextInt(Plosca.N);
+//		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
 		
 //		Poteza poteza = new Poteza(x, y);
-		return poteza;
 	}
 	
 	public void done() {
@@ -70,4 +65,48 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		} catch (Exception e) {
 		}
 	}
+	
+	private OcenjenaPoteza minMax(int k, Igra igra) {
+		
+		Igralec naPotezi = null;
+		
+		System.out.println("zaèeli smo minimax");
+		System.out.println(k);
+		
+		switch (igra.stanje()) {
+		case NA_POTEZI_CRNI : naPotezi = Igralec.CRNI; break;
+		case NA_POTEZI_BELI : naPotezi = Igralec.BELI; break;
+		default : naPotezi = null; break;
+		}
+		
+		assert (naPotezi != null);
+		
+		if (k >= globina) {
+			return new OcenjenaPoteza(null, igra.igralna_plosca.ocenaPlosce(kogaIgramo));
+		}
+		
+		Poteza najboljsa = null;
+		int ocenaNajboljse = 0;
+		
+		for (Poteza p : igra.moznePoteze()) {
+
+			Igra kopijaIgre = new Igra(igra);
+			kopijaIgre.odigrajPotezo(p);
+
+			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
+
+			if (najboljsa == null 
+				|| (naPotezi == kogaIgramo && ocenaP > ocenaNajboljse) // maksimiziramo
+				|| (naPotezi != kogaIgramo && ocenaP < ocenaNajboljse) // minimiziramo
+				) {
+				najboljsa = p;
+				ocenaNajboljse = ocenaP;
+			}
+		}
+		// Vrnemo najboljšo najdeno potezo in njeno oceno
+		
+		assert (najboljsa != null);
+		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
+	}
 }
+

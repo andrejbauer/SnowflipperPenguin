@@ -61,7 +61,7 @@ public class Igra {
 		this.zmagovalna_peterka = igra.zmagovalna_peterka;
 //		this.na_potezi = igra.na_potezi;
 		this.stanje = igra.stanje;
-		
+		this.igralna_plosca = plosca;
 	}
 
 	// Odigramo potezo.
@@ -183,13 +183,17 @@ public class Igra {
 		return stanje;	
 	}
 	
-	public LinkedList<Polje> moznePoteze(){
-		LinkedList<Polje> moznePoteze = new LinkedList<Polje>();
+	public LinkedList<Poteza> moznePoteze(){
+		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
+		System.out.println("mozne poteze");
 		
 		for (int i = 0; i < Plosca.N; i++) {
 			for (int j = 0; j < Plosca.N; j++) {
-				if(igralna_plosca.getPlosca(i,j) == Polje.PRAZNO) {
-					moznePoteze.add(igralna_plosca.getPlosca(i, j));
+				System.out.println(igralna_plosca);
+				if(igralna_plosca.getPlosca(i, j) == Polje.PRAZNO) {
+					System.out.println(i);
+					System.out.println(j);
+					moznePoteze.add(new Poteza(i, j));
 				} 
 			}
 		}

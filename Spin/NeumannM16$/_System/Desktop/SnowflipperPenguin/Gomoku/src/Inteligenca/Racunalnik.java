@@ -3,6 +3,7 @@ package Inteligenca;
 import javax.swing.SwingWorker;
 
 import GUI.Okno;
+import logika.Igralec;
 import logika.Poteza;
 
 public class Racunalnik extends Strateg {
@@ -10,15 +11,17 @@ public class Racunalnik extends Strateg {
 	private Okno master;
 	private SwingWorker<Poteza, Object> mislec;
 	private boolean prekini;
+	private Igralec kogaIgramo;
 	
-	public Racunalnik(Okno master) {
+	public Racunalnik(Okno master, Igralec kogaIgramo) {
 		super();
 		this.master = master;
+		this.kogaIgramo = kogaIgramo;
 	}
 
 	@Override
 	public void na_potezi() {
-		mislec = new NakljucnePoteze(master);
+		mislec = new PotezeAI(master, 2, kogaIgramo);
 		mislec.execute();
 		
 		

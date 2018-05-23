@@ -20,8 +20,8 @@ public class Igra {
 	
 	// Atributi ki jih ima igra.
 	
-	private Plosca igralna_plosca;
-	private Igralec na_potezi;
+	public Plosca igralna_plosca;
+//	private Igralec na_potezi;
 	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
@@ -47,7 +47,7 @@ public class Igra {
 				}
 			}
 		zmagovalna_peterka = null;
-		na_potezi = Igralec.CRNI;
+//		na_potezi = Igralec.CRNI;
 		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
@@ -59,31 +59,32 @@ public class Igra {
 			}
 		}
 		this.zmagovalna_peterka = igra.zmagovalna_peterka;
-		this.na_potezi = igra.na_potezi;
+//		this.na_potezi = igra.na_potezi;
 		this.stanje = igra.stanje;
-		
+		this.igralna_plosca = plosca;
 	}
 
 	// Odigramo potezo.
 	
 	public boolean odigrajPotezo(Poteza p) {
+		
 		if (stanje != Stanje.ZMAGA_BELI && stanje != Stanje.ZMAGA_CRNI) {
 			
 			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
 				return false;
 			} else {
-				igralna_plosca.setPlosca(p.getX(),p.getY(),na_potezi.getPolje());
+				igralna_plosca.setPlosca(p.getX(),p.getY(),naPotezi().getPolje());
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
-					System.out.println("GJ" + " " + na_potezi + " " + "zmagu si");
+					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");
 					
 				} else {
-				na_potezi = na_potezi.nasprotnik();
 				
-				switch (na_potezi) {
-				case CRNI: stanje = Stanje.NA_POTEZI_CRNI; break;
-				case BELI: stanje = Stanje.NA_POTEZI_BELI; break;
+				switch (naPotezi()) {
+				case CRNI: stanje = Stanje.NA_POTEZI_BELI; break;
+				case BELI: stanje = Stanje.NA_POTEZI_CRNI; break;
 				default: break;
+				
 				}
 				
 				}
@@ -110,7 +111,13 @@ public class Igra {
 				} 
 			}
 		}
-		stanje = Stanje.NEODLOCENO;
+		
+		switch (stanje) {
+		case ZMAGA_CRNI: break;
+		case ZMAGA_BELI: break;
+		default: stanje = Stanje.NEODLOCENO;
+		} 
+
 		return false;
 	}
 	
@@ -126,7 +133,6 @@ public class Igra {
 		// vektorji (0, 1), (1, 1), (1, 0), (1, -1)
 		
 		for(Vektor v : smeri) {
-			
 
 			int S = 0; // Koliko smo jih že našli v vrsti/stoplcu/diagonali
 
@@ -137,10 +143,10 @@ public class Igra {
 				
 				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)) {
 				
-					if(igralna_plosca.getPlosca(x, y) == na_potezi.getPolje()) {
+					if(igralna_plosca.getPlosca(x, y) == naPotezi().getPolje()) {
 						S++;
 						if (S >= M) {
-							if (na_potezi == Igralec.CRNI) {
+							if (stanje == stanje.NA_POTEZI_CRNI) {
 								stanje = Stanje.ZMAGA_CRNI;
 							} else {
 								stanje = Stanje.ZMAGA_BELI;
@@ -174,20 +180,28 @@ public class Igra {
 	}
 
 	public Stanje stanje() {
+		return stanje;	
+	}
+	
+	public LinkedList<Poteza> moznePoteze(){
+		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
 		
-		return stanje;
-		
-//		if (!aliObstajaseKaksnaPoteza()) {
-//			return Stanje.NEODLOCENO;
-//		} else if () {
-		
-		
-//		} else if (na_potezi == Igralec.CRNI) {
-//			return Stanje.NA_POTEZI_CRNI;
-//		} else  {
-//			return Stanje.NA_POTEZI_BELI;
-//		}
-		
+		for (int i = 0; i < Plosca.N; i++) {
+			for (int j = 0; j < Plosca.N; j++) {
+				if(igralna_plosca.getPlosca(i, j) == Polje.PRAZNO) {
+					moznePoteze.add(new Poteza(i, j));
+				} 
+			}
+		}
+		return moznePoteze;
+	}
+	
+	public Igralec naPotezi() {
+		if(stanje == stanje.NA_POTEZI_BELI){
+			return Igralec.BELI;
+		} else {
+			return Igralec.CRNI;
+		}
 	}
 	
 }

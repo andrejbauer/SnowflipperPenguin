@@ -16,6 +16,7 @@ import Inteligenca.Clovek;
 import Inteligenca.Racunalnik;
 import Inteligenca.Strateg;
 import logika.Igra;
+import logika.Igralec;
 import logika.Polje;
 import logika.Poteza;
 
@@ -149,14 +150,14 @@ public class Okno extends JFrame implements ActionListener {
 			System.out.println("beli");
 			kdo_je_igralec = KdoJeIgralec.BELI;
 			bel_igralec = new Clovek(this);
-			crn_igralec = new Racunalnik(this);
+			crn_igralec = new Racunalnik(this, Igralec.CRNI);
 			nova_igra();
 		}
 		
 		if (e.getSource() == igraj_kot_crni) {
 			System.out.println("crni");
 			kdo_je_igralec = KdoJeIgralec.CRNI;
-			bel_igralec = new Racunalnik(this);
+			bel_igralec = new Racunalnik(this, Igralec.BELI);
 			crn_igralec = new Clovek(this);
 			nova_igra();
 		}
@@ -164,8 +165,8 @@ public class Okno extends JFrame implements ActionListener {
 		if (e.getSource() == racunalnik_proti_racunalniku) {
 			System.out.println("eve");
 			kdo_je_igralec = KdoJeIgralec.NOBEN;
-			bel_igralec = new Racunalnik(this);
-			crn_igralec = new Racunalnik(this);
+			bel_igralec = new Racunalnik(this, Igralec.BELI);
+			crn_igralec = new Racunalnik(this, Igralec.CRNI);
 			nova_igra();
 		}
 		
@@ -173,6 +174,9 @@ public class Okno extends JFrame implements ActionListener {
 	}
 
 	public void odigraj(Poteza p) {
+		
+//		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+		
 		igra.odigrajPotezo(p);
 		osveziGUI();
 		System.out.println(igra.stanje());
@@ -206,9 +210,7 @@ public class Okno extends JFrame implements ActionListener {
 	}
 	
 	public void klikNaPolje(int i, int j) {
-		System.out.println("kliknili smo na polje");
-//		odigraj(new Poteza(i, j));
-		
+
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI:
 			if (kdo_je_igralec == KdoJeIgralec.BELI || kdo_je_igralec == KdoJeIgralec.OBA) {

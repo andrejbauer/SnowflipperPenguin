@@ -1,5 +1,8 @@
 package Inteligenca;
 
+import java.util.Collections;
+import java.util.LinkedList;
+
 import javax.swing.SwingWorker;
 import GUI.Okno;
 import logika.Igra;
@@ -23,39 +26,43 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.kopirajIgro();
-		OcenjenaPoteza p = minMax(0, igra);
-		assert (p.poteza != null);
-		return p.poteza;
+//		OcenjenaPoteza p = minMax(0, igra);
+//		assert (p.poteza != null);
+//		return p.poteza;
 		
-//		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
-//		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
+		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
 
-//		for (int i = 0; i < 1; i++) {
-//			System.out.println("razmišljam...");
-//			try {
-//				Thread.sleep(5);
-//			} catch (InterruptedException e) { }
-//			if (this.isCancelled()) {
-//				System.out.println("nihaj");
-//				return null;
-//			}
-//		}
+		for (int i = 0; i < 1; i++) {
+			System.out.println("razmišljam...");
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) { }
+			if (this.isCancelled()) {
+				System.out.println("nihaj");
+				return null;
+			}
+		}
 				
-//		for (Poteza p : moznePoteze) {
-//			igra.odigrajPotezo(p);
-//			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
+		for (Poteza p : moznePoteze) {
+			igra.odigrajPotezo(p);
+			if (igra.zmagovalna_peterka != null){
+				return p;
+			}
+			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
 //			int minOcena = Collections.min(vseOcene);
-//			igra = master.kopirajIgro();
-//		}
-//		System.out.println(vseOcene);
+			igra = master.kopirajIgro();
+		}
+		System.out.println(vseOcene);
 		
-//		int maxOcena = Collections.max(vseOcene);
+		int maxOcena = Collections.max(vseOcene);
 		
-//		int minOcena = Collections.min(vseOcene);
+		int minOcena = Collections.min(vseOcene);
 		
-//		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
+		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
 		
-//		Poteza poteza = new Poteza(x, y);
+		return poteza;
+		
 	}
 	
 	public void done() {
@@ -92,6 +99,10 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigrajPotezo(p);
+			
+			if (igra.zmagovalna_peterka != null){
+				return new OcenjenaPoteza(p, 100000);
+			}
 
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 

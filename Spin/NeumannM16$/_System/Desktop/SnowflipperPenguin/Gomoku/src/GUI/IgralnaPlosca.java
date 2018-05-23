@@ -109,9 +109,6 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 				g3.setStroke(new BasicStroke((float) (z * LINE_WIDTH)));
 //				for (int i = 1; i < Plosca.N; i++) {
 				
-				System.out.println("Hello");
-				System.out.println(z/2);
-				
 					g3.drawLine((int)(Igra.zmagovalna_peterka.getZacetekX()*z + z/2),
 							    (int)(Igra.zmagovalna_peterka.getZacetekY()*z + z/2),
 							    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),

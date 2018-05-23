@@ -58,7 +58,7 @@ public class Igra {
 				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
 			}
 		}
-		this.zmagovalna_peterka = igra.zmagovalna_peterka;
+//		this.zmagovalna_peterka = igra.zmagovalna_peterka;
 //		this.na_potezi = igra.na_potezi;
 		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
@@ -74,6 +74,7 @@ public class Igra {
 				return false;
 			} else {
 				igralna_plosca.setPlosca(p.getX(),p.getY(),naPotezi().getPolje());
+				
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
 					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");

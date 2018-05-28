@@ -18,6 +18,8 @@ public class Igra {
 	
 	public static Peterka zmagovalna_peterka;
 	
+	private List<Poteza> odigrane =  new LinkedList<Poteza>();
+	
 	// Atributi ki jih ima igra.
 	
 	public Plosca igralna_plosca;
@@ -75,6 +77,7 @@ public class Igra {
 			} else {
 				igralna_plosca.setPlosca(p.getX(),p.getY(),naPotezi().getPolje());
 				
+				odigrane.add(p);
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
 					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");
@@ -195,6 +198,26 @@ public class Igra {
 			}
 		}
 		return moznePoteze;
+	}
+	
+	public LinkedList<Poteza> optimalnePoteze(){
+		
+		LinkedList<Poteza> optimalnePoteze =  new LinkedList<Poteza>();
+		
+		for (Poteza p : odigrane){
+			for (Vektor v : smeri){
+				if (igralna_plosca.getPlosca(p.getX() + v.getX(), p.getY() + v.getY()) == Polje.PRAZNO){
+					optimalnePoteze.add(new Poteza(p.getX() + v.getX(), p.getY() + v.getY()));
+				}
+				
+				if (igralna_plosca.getPlosca(p.getX() - v.getX(), p.getY() - v.getY()) == Polje.PRAZNO){
+					optimalnePoteze.add(new Poteza(p.getX() - v.getX(), p.getY() - v.getY()));
+				}
+				
+			}
+		}
+		
+		return optimalnePoteze;
 	}
 	
 	public Igralec naPotezi() {

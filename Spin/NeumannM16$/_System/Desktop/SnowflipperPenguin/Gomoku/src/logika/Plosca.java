@@ -280,19 +280,11 @@ public class Plosca {
 		int ocena = 0;
 		
 		for(int i : odprte_n_terice.keySet()) {
-			if (i == 5) {
-				ocena += odprte_n_terice.get(i)*100000;
-			} else {
-				ocena += odprte_n_terice.get(i)*i*i;
-			}
+			ocena += 10^(i)*odprte_n_terice.get(i);
 		}
 		
 		for (int i : pol_odprte_n_terice.keySet()) {
-			if (i == 5) {
-				ocena += pol_odprte_n_terice.get(i)*100000;
-			} else {
-				ocena += pol_odprte_n_terice.get(i)*i*i/3;
-			}
+			ocena += 10^(i)*pol_odprte_n_terice.get(i)/3;
 		}
 		
 		return ocena;

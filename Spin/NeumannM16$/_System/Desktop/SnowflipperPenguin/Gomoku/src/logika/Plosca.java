@@ -40,6 +40,12 @@ public class Plosca {
 	}
 	
 	private void generirajHashMape(Igralec naPotezi) {
+		
+		for (int i = 0; i < 5; i++) {
+			odprte_n_terice.put(i, 0);
+			pol_odprte_n_terice.put(i, 0);
+		}
+/*		
 		odprte_n_terice.put(0, 0);
 		odprte_n_terice.put(1, 0);
 		odprte_n_terice.put(2, 0);
@@ -53,6 +59,7 @@ public class Plosca {
 		pol_odprte_n_terice.put(3, 0);
 		pol_odprte_n_terice.put(4, 0);
 		pol_odprte_n_terice.put(5, 0);
+*/
 		
 		// Navpièe n terice
 		
@@ -280,11 +287,11 @@ public class Plosca {
 		int ocena = 0;
 		
 		for(int i : odprte_n_terice.keySet()) {
-			ocena += 10^(i)*odprte_n_terice.get(i);
+			ocena += Math.pow(10, i)*odprte_n_terice.get(i)*i;
 		}
 		
 		for (int i : pol_odprte_n_terice.keySet()) {
-			ocena += 10^(i)*pol_odprte_n_terice.get(i)/3;
+			ocena += Math.pow(10, i)*pol_odprte_n_terice.get(i)*i/3;
 		}
 		
 		return ocena;

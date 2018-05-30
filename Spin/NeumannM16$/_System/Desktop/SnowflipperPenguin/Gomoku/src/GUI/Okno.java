@@ -42,7 +42,7 @@ public class Okno extends JFrame implements ActionListener {
 	/**
 	 * Logika igre, null če se igra trenutno ne igra
 	 */
-	private Igra igra;
+	protected Igra igra;
 	
 	// Izbire v meniju
 	private JMenuItem nova_igra;
@@ -178,7 +178,9 @@ public class Okno extends JFrame implements ActionListener {
 //		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
 		
 		igra.odigrajPotezo(p);
-		osveziGUI();
+		
+//		osveziGUI();
+		
 		System.out.println(igra.stanje());
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
@@ -188,6 +190,8 @@ public class Okno extends JFrame implements ActionListener {
 		case ZMAGA_CRNI: break;
 		default: break;
 		}
+		
+		osveziGUI();
 	}
 	
 	public void osveziGUI() {

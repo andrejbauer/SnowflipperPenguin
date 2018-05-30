@@ -287,11 +287,11 @@ public class Plosca {
 		int ocena = 0;
 		
 		for(int i : odprte_n_terice.keySet()) {
-			ocena += Math.pow(10, i)*odprte_n_terice.get(i)*i;
+			ocena += Math.pow(2, i)*odprte_n_terice.get(i)*i;
 		}
 		
 		for (int i : pol_odprte_n_terice.keySet()) {
-			ocena += Math.pow(10, i)*pol_odprte_n_terice.get(i)*i/3;
+			ocena += Math.pow(2, i)*pol_odprte_n_terice.get(i)*i/3;
 		}
 		
 		return ocena;

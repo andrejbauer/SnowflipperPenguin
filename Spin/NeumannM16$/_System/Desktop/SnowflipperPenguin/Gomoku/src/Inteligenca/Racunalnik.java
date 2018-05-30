@@ -21,7 +21,7 @@ public class Racunalnik extends Strateg {
 
 	@Override
 	public void na_potezi() {
-		mislec = new PotezeAI(master, 2, kogaIgramo);
+		mislec = new PotezeAI(master, 1, kogaIgramo);
 		mislec.execute();
 		
 		

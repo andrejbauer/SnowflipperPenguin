@@ -26,10 +26,10 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.kopirajIgro();
-//		OcenjenaPoteza p = minMax(0, igra);
-//		assert (p.poteza != null);
-//		return p.poteza;
-		
+		OcenjenaPoteza p = minMax(0, igra);
+		assert (p.poteza != null);
+		return p.poteza;
+/*		
 		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
 		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
 
@@ -62,7 +62,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
 		
 		return poteza;
-		
+*/		
 	}
 	
 	public void done() {
@@ -76,9 +76,6 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	private OcenjenaPoteza minMax(int k, Igra igra) {
 		
 		Igralec naPotezi = null;
-		
-		System.out.println("zaèeli smo minimax");
-		System.out.println(k);
 		
 		switch (igra.stanje()) {
 		case NA_POTEZI_CRNI : naPotezi = Igralec.CRNI; break;
@@ -95,15 +92,16 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		Poteza najboljsa = null;
 		int ocenaNajboljse = 0;
 		
-		for (Poteza p : igra.moznePoteze()) {
+		for (Poteza p : igra.optimalnePoteze()) {
 
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigrajPotezo(p);
-			
+//			kopijaIgre.zmagovalna_peterka = null;
+
 			if (igra.zmagovalna_peterka != null){
 				return new OcenjenaPoteza(p, 100000);
 			}
-
+			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 
 			if (najboljsa == null 

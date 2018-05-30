@@ -3,6 +3,7 @@ package logika;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Igra {
 		
@@ -18,12 +19,11 @@ public class Igra {
 	
 	public static Peterka zmagovalna_peterka;
 	
-	private List<Poteza> odigrane =  new LinkedList<Poteza>();
+	public List<Poteza> odigrane =  new LinkedList<Poteza>();
 	
 	// Atributi ki jih ima igra.
 	
 	public Plosca igralna_plosca;
-//	private Igralec na_potezi;
 	private Stanje stanje;
 	
 	// Dodamo vektorje za preverajanje
@@ -49,7 +49,6 @@ public class Igra {
 				}
 			}
 		zmagovalna_peterka = null;
-//		na_potezi = Igralec.CRNI;
 		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
@@ -61,7 +60,7 @@ public class Igra {
 			}
 		}
 //		this.zmagovalna_peterka = igra.zmagovalna_peterka;
-//		this.na_potezi = igra.na_potezi;
+		this.odigrane = igra.odigrane;
 		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
 	}
@@ -75,9 +74,9 @@ public class Igra {
 			if (igralna_plosca.getPlosca(p.getX(),p.getY()) != Polje.PRAZNO) {
 				return false;
 			} else {
-				igralna_plosca.setPlosca(p.getX(),p.getY(),naPotezi().getPolje());
+				igralna_plosca.setPlosca(p.getX(),p.getY(), naPotezi().getPolje());
 				
-				odigrane.add(p);
+				odigrane.add(new Poteza(p.getX(), p.getY()));
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
 					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");
@@ -203,18 +202,70 @@ public class Igra {
 	public LinkedList<Poteza> optimalnePoteze(){
 		
 		LinkedList<Poteza> optimalnePoteze =  new LinkedList<Poteza>();
+		boolean aliJePotezaZeNoter = false;
 		
 		for (Poteza p : odigrane){
 			for (Vektor v : smeri){
-				if (igralna_plosca.getPlosca(p.getX() + v.getX(), p.getY() + v.getY()) == Polje.PRAZNO){
-					optimalnePoteze.add(new Poteza(p.getX() + v.getX(), p.getY() + v.getY()));
-				}
+				int x = p.getX() + v.getX();
+				int y = p.getY() + v.getY();
 				
-				if (igralna_plosca.getPlosca(p.getX() - v.getX(), p.getY() - v.getY()) == Polje.PRAZNO){
-					optimalnePoteze.add(new Poteza(p.getX() - v.getX(), p.getY() - v.getY()));
-				}
+				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)){
 				
+					if (igralna_plosca.getPlosca(x, y) == Polje.PRAZNO){
+						
+						for (Poteza q : optimalnePoteze){
+							if (optimalnePoteze.isEmpty()){
+								optimalnePoteze.add(new Poteza(x, y));
+								System.out.println(optimalnePoteze);
+								aliJePotezaZeNoter = true;
+								break;
+							}
+							
+							if (p.aliStaPoteziEnaki(q)){
+								aliJePotezaZeNoter = true;
+								break;
+							}
+						}
+						
+						if (!aliJePotezaZeNoter){
+							optimalnePoteze.add(new Poteza(x, y));
+							aliJePotezaZeNoter = false;
+						}		
+					}
+				}
+					x = p.getX() - v.getX();
+					y = p.getY() - v.getY();
+					
+				if ((0 <= x) && (x < Plosca.N) && (0 <= y) && (y < Plosca.N)){
+					
+					if (igralna_plosca.getPlosca(x, y) == Polje.PRAZNO){
+						
+						for (Poteza q : optimalnePoteze){
+							if (optimalnePoteze.isEmpty()){
+								optimalnePoteze.add(new Poteza(x, y));
+								System.out.println(optimalnePoteze);
+								aliJePotezaZeNoter = true;
+								break;
+							}
+							
+							if (q.aliStaPoteziEnaki(p)){
+								aliJePotezaZeNoter = true;
+								break;
+							}
+						}
+						
+						if (!aliJePotezaZeNoter){
+							optimalnePoteze.add(new Poteza(x, y));
+							aliJePotezaZeNoter = false;
+						}
+					}
+				}
 			}
+		}
+		
+		if (odigrane.isEmpty()){
+			
+			optimalnePoteze.add(new Poteza(9, 9));
 		}
 		
 		return optimalnePoteze;

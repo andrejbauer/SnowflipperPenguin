@@ -10,6 +10,11 @@ public class Poteza {
 		this.y = y;
 	}
 	
+	public boolean aliStaPoteziEnaki(Poteza p){
+		return p.getX() == this.x && p.getY() == this.y;
+	}
+	
+	
 	public int getX() {
 		return x;
 	}

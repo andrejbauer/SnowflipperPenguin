@@ -15,6 +15,14 @@ public class Peterka {
 		this.y = zmagovalna_mnozica_y;
 	}
 	
+	public List<Integer> xMnozica(){
+		return x;
+	}
+	
+	public List<Integer> yMnozica(){
+		return y;
+	}
+	
 	public int getZacetekX() {
 		return x.get(0) ;
 	}

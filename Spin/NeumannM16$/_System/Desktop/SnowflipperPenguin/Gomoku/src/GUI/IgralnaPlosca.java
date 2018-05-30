@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import logika.Igra;
 import logika.Plosca;
 import logika.Polje;
+import logika.Stanje;
 
 @SuppressWarnings({ "serial", "unused" })
 public class IgralnaPlosca extends JPanel implements MouseListener{
@@ -100,7 +101,8 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 			}
 			
 			if (Igra.zmagovalna_peterka != null) {
-				System.out.println("nekdo je zmagal");
+				if (master.igra.stanje() == Stanje.ZMAGA_BELI || master.igra.stanje() == Stanje.ZMAGA_CRNI){
+//				System.out.println("nekdo je zmagal");
 				Graphics2D g3 = (Graphics2D)g;
 				// širina kvadratka
 				double z = squareWidth();
@@ -114,6 +116,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 							    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),
 							    (int)(Igra.zmagovalna_peterka.getKonecY()*z + z/2));
 //			}
+			}
 		}
 		}
 		

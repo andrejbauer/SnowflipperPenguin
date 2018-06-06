@@ -179,7 +179,7 @@ public class Okno extends JFrame implements ActionListener {
 //		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
 		
 		igra.odigrajPotezo(p);
-		System.out.println(Ocena.ocenaPolje(igra.naPotezi(), p.getX(),p.getY(), igra.igralna_plosca));
+		
 		
 //		osveziGUI();
 		

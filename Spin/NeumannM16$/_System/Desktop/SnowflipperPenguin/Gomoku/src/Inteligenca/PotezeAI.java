@@ -95,7 +95,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		assert (naPotezi != null);
 		
 		if (k >= globina) {
-			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra.igralna_plosca));
+			return new OcenjenaPoteza(null, Ocena.ocenaPolje(kogaIgramo, null, null, igra.igralna_plosca));
 		}
 		
 		Poteza najboljsa = null;

@@ -17,6 +17,8 @@ public enum Igralec {
 	public Polje getPolje() {
 		return (this == CRNI ? Polje.CRNO : Polje.BELO);
 	}
-
+	public Polje getPolje2() {
+		return (this == CRNI ? Polje.BELO : Polje.CRNO);
+	}
 	
 }

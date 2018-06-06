@@ -80,13 +80,22 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		switch (igra.stanje()) {
 		case NA_POTEZI_CRNI : naPotezi = Igralec.CRNI; break;
 		case NA_POTEZI_BELI : naPotezi = Igralec.BELI; break;
-		default : naPotezi = null; break;
+		case ZMAGA_CRNI:
+			return new OcenjenaPoteza(
+					null,
+					(kogaIgramo == Igralec.CRNI ? 100000000 : 100000000));
+		case ZMAGA_BELI:
+			return new OcenjenaPoteza(
+					null,
+					(kogaIgramo == Igralec.BELI ? 100000000 : 100000000));
+		case NEODLOCENO:
+			return new OcenjenaPoteza(null, 100000000);
 		}
 		
 		assert (naPotezi != null);
 		
 		if (k >= globina) {
-			return new OcenjenaPoteza(null, igra.igralna_plosca.ocenaPlosce(kogaIgramo));
+			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra.igralna_plosca));
 		}
 		
 		Poteza najboljsa = null;
@@ -98,9 +107,14 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 			kopijaIgre.odigrajPotezo(p);
 //			kopijaIgre.zmagovalna_peterka = null;
 
+			
+			
 			if (igra.zmagovalna_peterka != null){
-				return new OcenjenaPoteza(p, 100000);
+				ocenaNajboljse = 10000000;
 			}
+			
+			
+
 			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 
@@ -110,6 +124,10 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 				) {
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
+				System.out.print(p.getX() + " ");
+				System.out.print(p.getY() + " ocena: ");
+				System.out.println(ocenaP);
+				
 			}
 		}
 		// Vrnemo najboljšo najdeno potezo in njeno oceno

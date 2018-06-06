@@ -3,7 +3,6 @@ package logika;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class Igra {
 		
@@ -59,7 +58,7 @@ public class Igra {
 				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
 			}
 		}
-//		this.zmagovalna_peterka = igra.zmagovalna_peterka;
+		this.zmagovalna_peterka = igra.zmagovalna_peterka;
 		this.odigrane = igra.odigrane;
 		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
@@ -79,7 +78,11 @@ public class Igra {
 				odigrane.add(new Poteza(p.getX(), p.getY()));
 				
 				if(aliJeKdoZmagal(p.getX(), p.getY())) {
-					System.out.println("GJ" + " " + naPotezi() + " " + "zmagu si");
+					if (naPotezi() == Igralec.CRNI){
+						stanje = Stanje.ZMAGA_CRNI;
+					} else {
+						stanje = Stanje.ZMAGA_BELI;
+					}
 					
 				} else {
 				
@@ -96,6 +99,7 @@ public class Igra {
 				
 				if (!aliObstajaseKaksnaPoteza()) {
 					System.out.println("Igra se je koncala neodloceno");
+					stanje = Stanje.NEODLOCENO;
 				}
 			}
 		return true;
@@ -278,5 +282,6 @@ public class Igra {
 			return Igralec.CRNI;
 		}
 	}
+	
 	
 }

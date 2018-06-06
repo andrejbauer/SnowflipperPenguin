@@ -181,7 +181,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 //		osveziGUI();
 		
-		System.out.println(igra.stanje());
+//		System.out.println(igra.stanje());
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
 		case NA_POTEZI_CRNI: crn_igralec.na_potezi(); break;

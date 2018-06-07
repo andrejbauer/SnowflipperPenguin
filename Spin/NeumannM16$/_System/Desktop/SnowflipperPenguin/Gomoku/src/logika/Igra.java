@@ -51,6 +51,8 @@ public class Igra {
 		stanje = Stanje.NA_POTEZI_CRNI;
 	}
 	
+	// Ustvari novo igro, ki je kopija podane igre.
+	
 	public Igra(Igra igra) {
 		Plosca plosca = new Plosca();
 		for (int i = 0; i < Plosca.N; i++) {
@@ -141,7 +143,7 @@ public class Igra {
 		
 		for(Vektor v : smeri) {
 
-			int S = 0; // Koliko smo jih �e na�li v vrsti/stoplcu/diagonali
+			int S = 0; // Koliko smo jih �e na�li v vrsti/stoplcu/diagonali
 
 			
 			for (int i =  -M; i < M; i++) {
@@ -168,6 +170,8 @@ public class Igra {
 								zmagovalna_mnozica_y.add(y + j*v.getY());
 							}
 							
+							// Ustvarimo zmagovalno peterko.
+							
 							zmagovalna_peterka = new Peterka(zmagovalna_mnozica_x, zmagovalna_mnozica_y);
 							
 							return true;
@@ -181,14 +185,16 @@ public class Igra {
 		}
 		return false;
 	}
-
+	
 	public Polje[][] getPlosca() {
 		return igralna_plosca.plosca;
 	}
-
+	
 	public Stanje stanje() {
 		return stanje;	
 	}
+	
+	// Vrne listo možnih potez
 	
 	public LinkedList<Poteza> moznePoteze(){
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
@@ -202,6 +208,8 @@ public class Igra {
 		}
 		return moznePoteze;
 	}
+	
+	// Vrne listo optimalnih potez (poteze okrog tistih ki smo jih že igrali).
 	
 	public LinkedList<Poteza> optimalnePoteze(){
 		
@@ -274,6 +282,8 @@ public class Igra {
 		
 		return optimalnePoteze;
 	}
+	
+	// Vrne kdo je na potezi (kliči samo če si prepričan da je nekdo na potezi)
 	
 	public Igralec naPotezi() {
 		if(stanje == stanje.NA_POTEZI_BELI){

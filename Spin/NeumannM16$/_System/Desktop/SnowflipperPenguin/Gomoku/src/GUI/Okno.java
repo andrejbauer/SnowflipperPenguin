@@ -45,9 +45,9 @@ public class Okno extends JFrame implements ActionListener {
 	protected Igra igra;
 	
 	// Izbire v meniju
+	
 	private JMenuItem nova_igra;
 	private JMenuItem igralec_proti_igralcu;
-//	private JMenuItem igralec_proti_racunalniku;
 	private JMenuItem igraj_kot_beli;
 	private JMenuItem igraj_kot_crni;
 	private JMenuItem racunalnik_proti_racunalniku;
@@ -59,6 +59,7 @@ public class Okno extends JFrame implements ActionListener {
 		
 		
 		// menu
+		
 				JMenuBar menu_bar = new JMenuBar();
 				this.setJMenuBar(menu_bar);
 				JMenu igra_menu = new JMenu("Igra");
@@ -66,7 +67,6 @@ public class Okno extends JFrame implements ActionListener {
 				menu_bar.add(igra_menu);
 				nova_igra = new JMenuItem("Nova igra");
 				igralec_proti_igralcu = new JMenuItem("igralec proti igralcu");
-//				igralec_proti_racunalniku = new JMenuItem("igralec proti računalniku");
 				igraj_kot_beli = new JMenuItem("igraj kot beli");
 				igraj_kot_crni = new JMenuItem("igraj kot crni");
 				racunalnik_proti_racunalniku = new JMenuItem("računalnik proti računalniku");
@@ -85,6 +85,7 @@ public class Okno extends JFrame implements ActionListener {
 				
 				
 	// igralno polje
+				
 				polje = new IgralnaPlosca(this);
 				GridBagConstraints polje_layout = new GridBagConstraints();
 				polje_layout.gridx = 0;
@@ -97,6 +98,7 @@ public class Okno extends JFrame implements ActionListener {
 				
 				
 	// statusna vrstica za sporočila
+				
 				status = new JLabel();
 				status.setFont(new Font(status.getFont().getName(),
 									    status.getFont().getStyle(),
@@ -114,12 +116,10 @@ public class Okno extends JFrame implements ActionListener {
 	private void nova_igra() {
 		if (bel_igralec != null) { bel_igralec.prekini(); }
 		if (crn_igralec != null) { crn_igralec.prekini(); }
-//		System.out.println("Začeli smo novo igro");
 		this.igra = new Igra();
 		
-//		bel_igralec = new Clovek(this);
-//		crn_igralec = new Racunalnik(this);
 		// Tistemu, ki je na potezi, to povemo
+		
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
 		case NA_POTEZI_CRNI: crn_igralec.na_potezi(); break;
@@ -175,13 +175,8 @@ public class Okno extends JFrame implements ActionListener {
 
 	public void odigraj(Poteza p) {
 		
-//		System.out.println(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-		
 		igra.odigrajPotezo(p);
-		
-//		osveziGUI();
-		
-//		System.out.println(igra.stanje());
+
 		switch (igra.stanje()) {
 		case NA_POTEZI_BELI: bel_igralec.na_potezi(); break;
 		case NA_POTEZI_CRNI: crn_igralec.na_potezi(); break;

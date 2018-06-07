@@ -7,7 +7,5 @@ public enum Stanje {
 	ZMAGA_BELI,
 	NEODLOCENO;
 
-	private Peterka zmagovalna;
-	
-	private Stanje() { zmagovalna = null; }
+
 }

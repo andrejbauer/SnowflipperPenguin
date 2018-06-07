@@ -29,7 +29,7 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 	 */
 	private final static double PADDING = 0.1;
 	
-	//public IgralnaPlosca(	)
+	
 	public IgralnaPlosca(Okno master) {
 		super();
 		setBackground(Color.orange);
@@ -70,9 +70,10 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-			// širina kvadratka
-			double w = squareWidth();
+			double w = squareWidth(); // širina kvadratka
+			
 			// črte
+			
 			g2.setColor(Color.black);
 			g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 			for (int i = 1; i < Plosca.N; i++) {
@@ -86,7 +87,8 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 						    (int)(i * w));
 			}
 			
-			// križci in krožci
+			// Beli in črni krogci
+			
 			Polje[][] plosca = master.getPlosca();
 			if (plosca != null) {
 				for (int i = 0; i < Plosca.N; i++) {
@@ -100,25 +102,24 @@ public class IgralnaPlosca extends JPanel implements MouseListener{
 				}
 			}
 			
+			// Če najde zmagovalno peterko pogleda če je res kdo zmagal in jo potem nariše.
+			
 			if (Igra.zmagovalna_peterka != null) {
 				if (master.igra.stanje() == Stanje.ZMAGA_BELI || master.igra.stanje() == Stanje.ZMAGA_CRNI){
-//				System.out.println("nekdo je zmagal");
 				Graphics2D g3 = (Graphics2D)g;
-				// širina kvadratka
-				double z = squareWidth();
+				double z = squareWidth(); // širina kvadratka
+				
 				// črte
+				
 				g3.setColor(Color.red);
 				g3.setStroke(new BasicStroke((float) (z * LINE_WIDTH)));
-//				for (int i = 1; i < Plosca.N; i++) {
-				
-					g3.drawLine((int)(Igra.zmagovalna_peterka.getZacetekX()*z + z/2),
-							    (int)(Igra.zmagovalna_peterka.getZacetekY()*z + z/2),
-							    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),
-							    (int)(Igra.zmagovalna_peterka.getKonecY()*z + z/2));
-//			}
+				g3.drawLine((int)(Igra.zmagovalna_peterka.getZacetekX()*z + z/2),
+						    (int)(Igra.zmagovalna_peterka.getZacetekY()*z + z/2),
+						    (int)(Igra.zmagovalna_peterka.getKonecX()*z + z/2),
+						    (int)(Igra.zmagovalna_peterka.getKonecY()*z + z/2));
 			}
 		}
-		}
+	}
 		
 
 	@Override

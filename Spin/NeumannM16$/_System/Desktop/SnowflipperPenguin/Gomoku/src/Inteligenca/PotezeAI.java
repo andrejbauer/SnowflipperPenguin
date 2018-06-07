@@ -1,8 +1,5 @@
 package Inteligenca;
 
-import java.util.Collections;
-import java.util.LinkedList;
-
 import javax.swing.SwingWorker;
 import GUI.Okno;
 import logika.Igra;
@@ -29,40 +26,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		OcenjenaPoteza p = minMax(0, igra);
 		assert (p.poteza != null);
 		return p.poteza;
-/*		
-		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
-		LinkedList<Integer> vseOcene = new LinkedList<Integer>();
-
-		for (int i = 0; i < 1; i++) {
-			System.out.println("razmišljam...");
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) { }
-			if (this.isCancelled()) {
-				System.out.println("nihaj");
-				return null;
-			}
-		}
-				
-		for (Poteza p : moznePoteze) {
-			igra.odigrajPotezo(p);
-			if (igra.zmagovalna_peterka != null){
-				return p;
-			}
-			vseOcene.add(igra.igralna_plosca.ocenaPlosce(igra.naPotezi()));
-//			int minOcena = Collections.min(vseOcene);
-			igra = master.kopirajIgro();
-		}
-		System.out.println(vseOcene);
-		
-		int maxOcena = Collections.max(vseOcene);
-		
-		int minOcena = Collections.min(vseOcene);
-		
-		Poteza poteza = moznePoteze.get(vseOcene.indexOf(minOcena));
-		
-		return poteza;
-*/		
+	
 	}
 	
 	public void done() {
@@ -94,6 +58,8 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		
 		assert (naPotezi != null);
 		
+		// ÄŒe smo dosegli globino preneham z rekurzijo in vrnemo oceno.
+		
 		if (k >= globina) {
 			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra.igralna_plosca));
 		}
@@ -105,16 +71,13 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigrajPotezo(p);
-//			kopijaIgre.zmagovalna_peterka = null;
-
-			
+	
+			// ÄŒe v igri najde zmagovalno petrko (se pravi da je bila poteza p zmagovalna) potem vrne kar oceno 10000000
 			
 			if (igra.zmagovalna_peterka != null){
 				ocenaNajboljse = 10000000;
 			}
 			
-			
-
 			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 						
@@ -125,14 +88,11 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 				) {
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
-				System.out.print(p.getX() + " ");
-				System.out.print(p.getY() + " ocena: ");
-				System.out.println(ocenaP);
-
 				
 			}
 		}
-		// Vrnemo najboljšo najdeno potezo in njeno oceno
+		
+		// Vrnemo najboljï¿½o najdeno potezo in njeno oceno
 	
 		assert (najboljsa != null);
 		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);

@@ -1,17 +1,15 @@
 package logika;
 
-import java.util.HashMap;
-
 public class Plosca {
-	// Igralna plošèa je velikosti N x N.
+	// Igralna ploï¿½ï¿½a je velikosti N x N.
 	
 	public static final int N=19;
 	
-	//Definiramo plošèo
+	//Definiramo ploï¿½ï¿½o
 	
 	public Polje [][] plosca;
 	
-	//Definimano igralno plošèo
+	//Definimano igralno ploï¿½ï¿½o
 	
 	protected Plosca() {
 		super();

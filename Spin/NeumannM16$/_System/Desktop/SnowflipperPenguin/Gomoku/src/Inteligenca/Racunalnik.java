@@ -10,7 +10,6 @@ public class Racunalnik extends Strateg {
 
 	private Okno master;
 	private SwingWorker<Poteza, Object> mislec;
-	private boolean prekini;
 	private Igralec kogaIgramo;
 	
 	public Racunalnik(Okno master, Igralec kogaIgramo) {

@@ -7,48 +7,37 @@ import logika.Plosca;
 import logika.Polje;
 
 public class Ocena {
-	public static final int ZMAGA = 10000000; // vrednost zmage, veË kot vsaka druga ocena pozicije
+	public static final int ZMAGA = 10000000; // vrednost zmage, veÔøΩ kot vsaka druga ocena pozicije
 	public static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
-	public static final int NEODLOCENO = 0; // vrednost neodloËene igre
+	public static final int NEODLOCENO = 0; // vrednost neodloÔøΩene igre
 	
-	public static final int[] ODPRTE = {3,9,30,300,3000};
-	public static final int[] POLODPRTE = {1,3,10,100,1000};
+	// Toƒçkovanje ki smo si ga zmislili
+	
+	public static final int[] ODPRTE = {0, 3, 9, 30, 300, 3000};
+	public static final int[] POLODPRTE = {0, 1, 3, 10, 100, 1000};
 
 
+	// Ustvarimo slovarje za odprte_n_terice (_XX_) in za pol_odprte_n_terice (OXX_)
+	
 	private static HashMap<Integer, Integer> odprte_n_terice = new HashMap<Integer, Integer>();
 	private static HashMap<Integer, Integer> pol_odprte_n_terice = new HashMap<Integer, Integer>(); 
 	
 	private static void generirajHashMape(Igralec naPotezi, Plosca plosca) {
 		
-		for (int i = 0; i <5; i++) {
+		for (int i = 0; i < 6; i++) {
 			odprte_n_terice.put(i, 0);
 			pol_odprte_n_terice.put(i, 0);
 		}
-		/*		
-				odprte_n_terice.put(0, 0);
-				odprte_n_terice.put(1, 0);
-				odprte_n_terice.put(2, 0);
-				odprte_n_terice.put(3, 0);
-				odprte_n_terice.put(4, 0);
-				odprte_n_terice.put(5, 0);
-		
-				pol_odprte_n_terice.put(0, 0);
-				pol_odprte_n_terice.put(1, 0);
-				pol_odprte_n_terice.put(2, 0);
-				pol_odprte_n_terice.put(3, 0);
-				pol_odprte_n_terice.put(4, 0);
-				pol_odprte_n_terice.put(5, 0);
-		*/
 				
-				// NavpiËe n terice
+				// NavpiÔøΩe n terice
 				
 				for (int i = 0; i < plosca.N; i++) {
 					
-					// ätevilo najdenih zapored
+					// ÔøΩtevilo najdenih zapored
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejönje  naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejÔøΩnje  naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -80,11 +69,11 @@ public class Ocena {
 				
 				for (int j = 0; j < plosca.N; j++) {
 					
-					// ätevilo najdenih zapored
+					// ÔøΩtevilo najdenih zapored
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejönje ne naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejÔøΩnje ne naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -112,15 +101,15 @@ public class Ocena {
 					}
 				}
 				
-				// Diagonalne n terice levo zgoraj / desno dol, z zaËetkom v zgornjih poljih
+				// Diagonalne n terice levo zgoraj / desno dol, z zaÔøΩetkom v zgornjih poljih
 				
 				for (int i = 0; i < plosca.N; i++) {
 					
-					// ätevilo najdenih zapored
+					// ÔøΩtevilo najdenih zapored
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejönje ne naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejÔøΩnje ne naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -149,15 +138,15 @@ public class Ocena {
 				}
 				
 				
-				// Diagonalne n terice levo zgoraj / desno dol, z zaËetkom v levih poljih
+				// Diagonalne n terice levo zgoraj / desno dol, z zaÔøΩetkom v levih poljih
 				
 				for (int j = -plosca.N + 2; j < 0; j++) {
 					
-					// ätevilo najdenih zapored
+					// ÔøΩtevilo najdenih zapored
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejönje ne naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejÔøΩnje ne naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -185,15 +174,15 @@ public class Ocena {
 					}
 				}
 				
-				// Diagonalne n terice levo spodaj / desno gor, z zaËetkom v spodnejih poljih
+				// Diagonalne n terice levo spodaj / desno gor, z zaÔøΩetkom v spodnejih poljih
 				
 				for (int i = 0; i < plosca.N; i++) {
 					
-					// ätevilo najdenih zapored
+					// ÔøΩtevilo najdenih zapored
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejönje ne naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejÔøΩnje ne naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -221,15 +210,15 @@ public class Ocena {
 					}
 				}
 				
-				// Diagonalne n terice levo spodaj / desno gor, z zaËetkom v levih poljih
+				// Diagonalne n terice levo spodaj / desno gor, z zaÔøΩetkom v levih poljih
 				
 						for (int j = 1; j < plosca.N; j++) {
 							
-							// ätevilo najdenih zapored
+							// ÔøΩtevilo najdenih zapored
 							
 							int S = 0;
 							
-							// Spremljamo ali je bilo prejönje ne naPotezi.getPolje() polje prazno
+							// Spremljamo ali je bilo prejÔøΩnje ne naPotezi.getPolje() polje prazno
 							
 							boolean prazno = false;
 							
@@ -260,13 +249,15 @@ public class Ocena {
 				
 			}
 			
+	// Izraƒçunamo oceno glede na najdene n-terice
+	
 		public static int ocenaPlosce(Igralec naPotezi, Plosca plosca) {
 			generirajHashMape(naPotezi, plosca);
 				
 				int ocena = 0;
 				
 				for(int i : odprte_n_terice.keySet()) {					
-					ocena =ocena+odprte_n_terice.get(i)*ODPRTE[i];
+					ocena += odprte_n_terice.get(i)*ODPRTE[i];
 				}
 				
 				for (int i : pol_odprte_n_terice.keySet()) {

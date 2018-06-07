@@ -7,13 +7,20 @@ import logika.Plosca;
 import logika.Polje;
 
 public class Ocena {
+	public static final int ZMAGA = 10000000; // vrednost zmage, veè kot vsaka druga ocena pozicije
+	public static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
+	public static final int NEODLOCENO = 0; // vrednost neodloèene igre
+	
+	public static final int[] ODPRTE = {3,9,30,300,3000};
+	public static final int[] POLODPRTE = {1,3,10,100,1000};
+
 
 	private static HashMap<Integer, Integer> odprte_n_terice = new HashMap<Integer, Integer>();
 	private static HashMap<Integer, Integer> pol_odprte_n_terice = new HashMap<Integer, Integer>(); 
 	
 	private static void generirajHashMape(Igralec naPotezi, Plosca plosca) {
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i <5; i++) {
 			odprte_n_terice.put(i, 0);
 			pol_odprte_n_terice.put(i, 0);
 		}
@@ -41,7 +48,7 @@ public class Ocena {
 					
 					int S = 0;
 					
-					// Spremljamo ali je bilo prejšnje ne naPotezi.getPolje() polje prazno
+					// Spremljamo ali je bilo prejšnje  naPotezi.getPolje() polje prazno
 					
 					boolean prazno = false;
 					
@@ -258,12 +265,12 @@ public class Ocena {
 				
 				int ocena = 0;
 				
-				for(int i : odprte_n_terice.keySet()) {
-					ocena += Math.pow(2, i)*odprte_n_terice.get(i)*i;
+				for(int i : odprte_n_terice.keySet()) {					
+					ocena =ocena+odprte_n_terice.get(i)*ODPRTE[i];
 				}
 				
 				for (int i : pol_odprte_n_terice.keySet()) {
-					ocena += Math.pow(2, i)*pol_odprte_n_terice.get(i)*i/3;
+					ocena += POLODPRTE[i]*pol_odprte_n_terice.get(i);
 				}				
 			return ocena;
 		}

@@ -83,13 +83,13 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		case ZMAGA_CRNI:
 			return new OcenjenaPoteza(
 					null,
-					(kogaIgramo == Igralec.CRNI ? 100000000 : 100000000));
+					(kogaIgramo == Igralec.CRNI ? Ocena.ZMAGA : Ocena.ZGUBA));
 		case ZMAGA_BELI:
 			return new OcenjenaPoteza(
 					null,
-					(kogaIgramo == Igralec.BELI ? 100000000 : 100000000));
+					(kogaIgramo == Igralec.BELI ? Ocena.ZMAGA : Ocena.ZGUBA));
 		case NEODLOCENO:
-			return new OcenjenaPoteza(null, 100000000);
+			return new OcenjenaPoteza(null, 0);
 		}
 		
 		assert (naPotezi != null);
@@ -117,6 +117,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 
 			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
+						
 
 			if (najboljsa == null 
 				|| (naPotezi == kogaIgramo && ocenaP > ocenaNajboljse) // maksimiziramo
@@ -127,11 +128,12 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 				System.out.print(p.getX() + " ");
 				System.out.print(p.getY() + " ocena: ");
 				System.out.println(ocenaP);
+
 				
 			}
 		}
 		// Vrnemo najboljšo najdeno potezo in njeno oceno
-		
+	
 		assert (najboljsa != null);
 		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
 	}

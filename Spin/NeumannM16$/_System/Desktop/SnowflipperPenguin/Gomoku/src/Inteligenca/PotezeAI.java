@@ -82,12 +82,21 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 						
 
-			if (najboljsa == null 
-				|| (naPotezi == kogaIgramo && ocenaP > ocenaNajboljse) // maksimiziramo
-				|| (naPotezi != kogaIgramo && ocenaP < ocenaNajboljse) // minimiziramo
-				) {
+			if (najboljsa == null )
+			{
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
+				
+			}
+			else if(
+				 (naPotezi == kogaIgramo && ocenaP >= ocenaNajboljse) // maksimiziramo
+				|| (naPotezi != kogaIgramo && ocenaP <= ocenaNajboljse) // minimiziramo
+				) 
+			{
+				if(System.currentTimeMillis()%2==0) {
+				najboljsa = p;
+				ocenaNajboljse = ocenaP;
+				}
 				
 			}
 		}

@@ -13,8 +13,8 @@ public class Ocena {
 	
 	// Točkovanje ki smo si ga zmislili
 	
-	public static final int[] ODPRTE = {0, 3, 9, 30, 300, 3000};
-	public static final int[] POLODPRTE = {0, 1, 3, 10, 100, 1000};
+	public static final int[] ODPRTE = {0, 3, 9, 30, 300, 300000};
+	public static final int[] POLODPRTE = {0, 1, 3, 10, 100, 100000};
 
 
 	// Ustvarimo slovarje za odprte_n_terice (_XX_) in za pol_odprte_n_terice (OXX_)

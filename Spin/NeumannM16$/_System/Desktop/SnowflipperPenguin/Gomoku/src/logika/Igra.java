@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import Inteligenca.Ocena;
+import Inteligenca.OcenjenaPoteza;
+
 public class Igra {
 		
 	// stevilo istih krogcev ki jih moramo imeti v vrstici/stolpcu/diagonali da zmagamo.
@@ -68,7 +71,16 @@ public class Igra {
 		
 		this.zmagovalna_peterka = igra.zmagovalna_peterka;
 		this.odigrane = odigrane;
-		this.stanje = igra.stanje;
+		
+		switch (igra.stanje()) {
+		case NA_POTEZI_CRNI : this.stanje = Stanje.NA_POTEZI_CRNI; break;
+		case NA_POTEZI_BELI : this.stanje = Stanje.NA_POTEZI_BELI; break;
+		case ZMAGA_CRNI : this.stanje = Stanje.ZMAGA_CRNI; break;
+		case ZMAGA_BELI : this.stanje = Stanje.ZMAGA_BELI; break;
+		case NEODLOCENO : this.stanje = Stanje.NEODLOCENO; break;
+		}
+		
+//		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
 	}
 

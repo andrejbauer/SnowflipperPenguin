@@ -90,11 +90,15 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 				|| (naPotezi != kogaIgramo && ocenaP <= ocenaNajboljse) // minimiziramo
 				) 
 			{
+				System.out.println("nč ni najdu");
 				// Zamenja najboljšo potezo samo če je ta pogoj izpolnjen
-				if(System.currentTimeMillis()%2==0) {
+	/*			if(System.currentTimeMillis()%2==0) {
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
-				}
+				}	*/
+				
+				najboljsa = p;
+				ocenaNajboljse = ocenaP;
 			}
 			
 		}

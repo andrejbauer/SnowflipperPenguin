@@ -27,8 +27,9 @@ public class Igra {
 	
 	// Dodamo vektorje za preverajanje
 	
-	static {
 	
+	static {
+		
 		smeri.add(new Vektor(0, 1));
 		smeri.add(new Vektor(1, 1));
 		smeri.add(new Vektor(1, 0));
@@ -60,8 +61,13 @@ public class Igra {
 				plosca.setPlosca(i, j, igra.igralna_plosca.getPlosca(i, j));
 			}
 		}
+		List<Poteza> odigrane =  new LinkedList<Poteza>();
+		for (Poteza p : igra.odigrane){
+			odigrane.add(p);
+		}
+		
 		this.zmagovalna_peterka = igra.zmagovalna_peterka;
-		this.odigrane = igra.odigrane;
+		this.odigrane = odigrane;
 		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
 	}
@@ -218,6 +224,7 @@ public class Igra {
 		
 		for (Poteza p : odigrane){
 			for (Vektor v : smeri){
+				aliJePotezaZeNoter = false;
 				int x = p.getX() + v.getX();
 				int y = p.getY() + v.getY();
 				
@@ -228,12 +235,12 @@ public class Igra {
 						for (Poteza q : optimalnePoteze){
 							if (optimalnePoteze.isEmpty()){
 								optimalnePoteze.add(new Poteza(x, y));
-								System.out.println(optimalnePoteze);
+		//						System.out.println(optimalnePoteze);
 								aliJePotezaZeNoter = true;
 								break;
 							}
 							
-							if (p.aliStaPoteziEnaki(q)){
+							if ((new Poteza(x, y)).aliStaPoteziEnaki(q)){
 								aliJePotezaZeNoter = true;
 								break;
 							}
@@ -245,6 +252,7 @@ public class Igra {
 						}		
 					}
 				}
+				aliJePotezaZeNoter = false;
 					x = p.getX() - v.getX();
 					y = p.getY() - v.getY();
 					
@@ -260,7 +268,7 @@ public class Igra {
 								break;
 							}
 							
-							if (q.aliStaPoteziEnaki(p)){
+							if ((new Poteza(x, y)).aliStaPoteziEnaki(q)){
 								aliJePotezaZeNoter = true;
 								break;
 							}
@@ -279,6 +287,17 @@ public class Igra {
 			
 			optimalnePoteze.add(new Poteza(9, 9));
 		}
+	
+		
+		for (Poteza p : optimalnePoteze){
+			System.out.print("( " + p.getX() + ", " + p.getY() + " ) ");
+		}
+		System.out.println("Odigrane: ");
+		for (Poteza p : odigrane){
+//			System.out.println("Odigrane: ");
+			System.out.print("( " + p.getX() + ", " + p.getY() + " ) ");
+		}
+		
 		
 		return optimalnePoteze;
 	}

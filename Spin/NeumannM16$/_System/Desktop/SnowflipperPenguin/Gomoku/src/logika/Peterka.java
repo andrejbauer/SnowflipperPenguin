@@ -52,4 +52,6 @@ public class Peterka {
 	public int getKonecY() {
 		return y.get(Igra.M-1) ;
 	}
+
+
 }

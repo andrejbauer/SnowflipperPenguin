@@ -32,7 +32,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	public void done() {
 		try {
 			Poteza p = this.get();
-			if (p != null) { master.odigraj(p); }
+			if (p != null) { master.odigraj(p); System.out.println("naslednje ocene");}
 		} catch (Exception e) {
 		}
 	}
@@ -74,32 +74,33 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	
 			// Če v igri najde zmagovalno petrko (se pravi da je bila poteza p zmagovalna) potem vrne kar oceno 10000000
 			
-			if (igra.zmagovalna_peterka != null){
-				ocenaNajboljse = 10000000;
-			}
-			
-			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
-						
+
+			System.out.println("( " + p.getX() + ", " + p.getY() + " ) : " + ocenaP);
 
 			if (najboljsa == null )
 			{
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
 				
-			}
+			}			
+			
 			else if(
 				 (naPotezi == kogaIgramo && ocenaP >= ocenaNajboljse) // maksimiziramo
 				|| (naPotezi != kogaIgramo && ocenaP <= ocenaNajboljse) // minimiziramo
 				) 
 			{
+				System.out.println("nč ni najdu");
 				// Zamenja najboljšo potezo samo če je ta pogoj izpolnjen
-				if(System.currentTimeMillis()%2==0) {
+	/*			if(System.currentTimeMillis()%2==0) {
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
-				}
+				}	*/
 				
+				najboljsa = p;
+				ocenaNajboljse = ocenaP;
 			}
+			
 		}
 		
 		// Vrnemo najbolj�o najdeno potezo in njeno oceno

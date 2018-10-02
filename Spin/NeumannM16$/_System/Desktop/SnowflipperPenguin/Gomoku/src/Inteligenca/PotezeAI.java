@@ -25,7 +25,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		Igra igra = master.kopirajIgro();
 		OcenjenaPoteza p = minMax(0, igra);
 		assert (p.poteza != null);
-		System.out.println(p.vrednost);
+	//	System.out.println(p.vrednost);
 	//	System.out.println(p.poteza.getX());
 	//	System.out.println(p.poteza.getY());
 		return p.poteza;

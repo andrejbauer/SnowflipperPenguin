@@ -41,10 +41,10 @@ public class Ocena {
 		int stNasprotnikovih = 0;
 		boolean nasliSmoNasprotnika = false;
 		
-		int xZac = Plosca.N;
-		int xKon = 0;
-		int yZac = Plosca.N;
-		int yKon = 0;
+		int xZac = Plosca.N;	// kje bomo začeli iskati na x osi
+		int xKon = 0;			// kje bomo končali iskati na x osi
+		int yZac = Plosca.N;	// kje bomo začeli iskati na y osi
+		int yKon = 0;			// kje bomo končali iskati na y osi
 		
 		for(Poteza p : igra.odigrane){
 			if (p.getX() < xZac) {
@@ -61,11 +61,11 @@ public class Ocena {
 			}
 		}
 		
-		if (xKon + 5 < Plosca.N) {
-			xKon = xKon + 5;
+		if (xKon + 4 < Plosca.N) {
+			xKon = xKon + 4;
 		}
-		if(yZac - 5 > 0) {
-			yZac = yZac - 5;
+		if(yZac - 4 > 0) {
+			yZac = yZac - 4;
 		}
 		
 		for (int i = xZac; i < xKon; i++){

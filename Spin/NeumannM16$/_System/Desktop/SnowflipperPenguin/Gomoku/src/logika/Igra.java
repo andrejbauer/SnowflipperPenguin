@@ -80,7 +80,6 @@ public class Igra {
 		case NEODLOCENO : this.stanje = Stanje.NEODLOCENO; break;
 		}
 		
-//		this.stanje = igra.stanje;
 		this.igralna_plosca = plosca;
 	}
 
@@ -247,7 +246,6 @@ public class Igra {
 						for (Poteza q : optimalnePoteze){
 							if (optimalnePoteze.isEmpty()){
 								optimalnePoteze.add(new Poteza(x, y));
-		//						System.out.println(optimalnePoteze);
 								aliJePotezaZeNoter = true;
 								break;
 							}
@@ -275,7 +273,6 @@ public class Igra {
 						for (Poteza q : optimalnePoteze){
 							if (optimalnePoteze.isEmpty()){
 								optimalnePoteze.add(new Poteza(x, y));
-								System.out.println(optimalnePoteze);
 								aliJePotezaZeNoter = true;
 								break;
 							}
@@ -299,17 +296,6 @@ public class Igra {
 			
 			optimalnePoteze.add(new Poteza(9, 9));
 		}
-	
-		
-		for (Poteza p : optimalnePoteze){
-			System.out.print("( " + p.getX() + ", " + p.getY() + " ) ");
-		}
-		System.out.println("Odigrane: ");
-		for (Poteza p : odigrane){
-//			System.out.println("Odigrane: ");
-			System.out.print("( " + p.getX() + ", " + p.getY() + " ) ");
-		}
-		
 		
 		return optimalnePoteze;
 	}

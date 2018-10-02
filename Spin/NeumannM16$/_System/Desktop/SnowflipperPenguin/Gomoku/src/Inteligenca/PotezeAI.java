@@ -25,6 +25,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		Igra igra = master.kopirajIgro();
 		OcenjenaPoteza p = minMax(0, igra);
 		assert (p.poteza != null);
+		System.out.println(p.vrednost);
 		return p.poteza;
 	
 	}
@@ -32,7 +33,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	public void done() {
 		try {
 			Poteza p = this.get();
-			if (p != null) { master.odigraj(p); System.out.println("naslednje ocene");}
+			if (p != null) { master.odigraj(p);}
 		} catch (Exception e) {
 		}
 	}
@@ -76,7 +77,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 
-			System.out.println("( " + p.getX() + ", " + p.getY() + " ) : " + ocenaP);
+//			System.out.println("( " + p.getX() + ", " + p.getY() + " ) : " + ocenaP);
 
 			if (najboljsa == null )
 			{
@@ -90,7 +91,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 				|| (naPotezi != kogaIgramo && ocenaP <= ocenaNajboljse) // minimiziramo
 				) 
 			{
-				System.out.println("nč ni najdu");
+	//			System.out.println("nč ni najdu");
 				// Zamenja najboljšo potezo samo če je ta pogoj izpolnjen
 	/*			if(System.currentTimeMillis()%2==0) {
 				najboljsa = p;

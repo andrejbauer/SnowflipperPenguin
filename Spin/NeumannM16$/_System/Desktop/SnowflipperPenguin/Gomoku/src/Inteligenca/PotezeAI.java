@@ -26,6 +26,8 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		OcenjenaPoteza p = minMax(0, igra);
 		assert (p.poteza != null);
 		System.out.println(p.vrednost);
+	//	System.out.println(p.poteza.getX());
+	//	System.out.println(p.poteza.getY());
 		return p.poteza;
 	
 	}
@@ -62,7 +64,7 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		// Če smo dosegli globino preneham z rekurzijo in vrnemo oceno.
 		
 		if (k >= globina) {
-			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra.igralna_plosca));
+			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra));
 		}
 		
 		Poteza najboljsa = null;

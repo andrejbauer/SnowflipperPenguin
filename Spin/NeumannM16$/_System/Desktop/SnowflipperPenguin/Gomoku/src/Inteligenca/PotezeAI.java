@@ -14,6 +14,11 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 	
 	private Igralec kogaIgramo;
 
+	private int alfa = Integer.MIN_VALUE;
+	
+	private int beta = Integer.MAX_VALUE;
+	
+	
 	public PotezeAI(Okno master, int globina, Igralec kogaIgramo) {
 		super();
 		this.master = master;
@@ -64,7 +69,9 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 		// Če smo dosegli globino preneham z rekurzijo in vrnemo oceno.
 		
 		if (k >= globina) {
-			return new OcenjenaPoteza(null, Ocena.ocenaPlosce(kogaIgramo, igra));
+			int x = Ocena.ocenaPlosce(kogaIgramo, igra);
+			alfa = x;
+			return new OcenjenaPoteza(null, x);
 		}
 		
 		Poteza najboljsa = null;
@@ -79,31 +86,25 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 			
 			int ocenaP = minMax(k+1, kopijaIgre).vrednost;
 
-//			System.out.println("( " + p.getX() + ", " + p.getY() + " ) : " + ocenaP);
-
 			if (najboljsa == null )
 			{
 				najboljsa = p;
-				ocenaNajboljse = ocenaP;
-				
+				ocenaNajboljse = ocenaP;	
 			}			
-			
 			else if(
 				 (naPotezi == kogaIgramo && ocenaP >= ocenaNajboljse) // maksimiziramo
 				|| (naPotezi != kogaIgramo && ocenaP <= ocenaNajboljse) // minimiziramo
 				) 
 			{
-	//			System.out.println("nč ni najdu");
 				// Zamenja najboljšo potezo samo če je ta pogoj izpolnjen
-	/*			if(System.currentTimeMillis()%2==0) {
-				najboljsa = p;
-				ocenaNajboljse = ocenaP;
-				}	*/
 				
+				if((kopijaIgre.odigrane).size()%2==0) {
 				najboljsa = p;
 				ocenaNajboljse = ocenaP;
-			}
-			
+				}	
+				najboljsa = p;
+				ocenaNajboljse = ocenaP;
+			}	
 		}
 		
 		// Vrnemo najbolj�o najdeno potezo in njeno oceno

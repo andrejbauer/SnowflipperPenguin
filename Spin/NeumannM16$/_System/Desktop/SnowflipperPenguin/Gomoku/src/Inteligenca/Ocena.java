@@ -64,8 +64,15 @@ public class Ocena {
 		if (xKon + 4 < Plosca.N) {
 			xKon = xKon + 4;
 		}
+		else {
+			xKon = Plosca.N;
+		}
+		
 		if(yZac - 4 > 0) {
 			yZac = yZac - 4;
+		}
+		else {
+			yZac = 0;
 		}
 		
 		for (int i = xZac; i < xKon; i++){

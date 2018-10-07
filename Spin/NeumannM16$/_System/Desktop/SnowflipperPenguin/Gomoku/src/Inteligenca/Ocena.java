@@ -61,11 +61,11 @@ public class Ocena {
 			}
 		}
 		
-		if (xKon + 4 < Plosca.N) {
-			xKon = xKon + 4;
+		if (xZac - 4 < 0) {
+			xZac = xZac - 4;
 		}
 		else {
-			xKon = Plosca.N;
+			xZac = 0;
 		}
 		
 		if(yZac - 4 > 0) {

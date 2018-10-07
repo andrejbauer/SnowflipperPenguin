@@ -296,6 +296,13 @@ public class Igra {
 			
 			optimalnePoteze.add(new Poteza(9, 9));
 		}
+		/*
+		for (Poteza p : optimalnePoteze) {
+			System.out.print("(" + p.getX() + ", ");
+			System.out.print(p.getY() + ") ");
+		}
+		System.out.println(" ");
+		*/
 		
 		return optimalnePoteze;
 	}
@@ -309,6 +316,4 @@ public class Igra {
 			return Igralec.CRNI;
 		}
 	}
-	
-	
 }

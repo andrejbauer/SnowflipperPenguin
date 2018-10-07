@@ -99,17 +99,11 @@ public class PotezeAI extends SwingWorker<Poteza, Object> {
 					
 				}
 			}
-			
-			
-			/*
-			if(ocenaP < beta) {
-				break;
-			}*/
 
 			if (najboljsa == null )
 			{
 				najboljsa = p;
-				ocenaNajboljse = ocenaP;	
+				ocenaNajboljse = ocenaP;
 			}			
 			else if(
 				 (naPotezi == kogaIgramo && ocenaP >= ocenaNajboljse) // maksimiziramo

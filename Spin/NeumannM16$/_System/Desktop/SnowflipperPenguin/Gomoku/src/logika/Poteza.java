@@ -22,4 +22,11 @@ public class Poteza {
 	public int getY() {
 		return y;
 	}
+
+	@Override
+	public String toString() {
+		return "Poteza [x=" + x + ", y=" + y + "]";
+	}
+	
+	
 }

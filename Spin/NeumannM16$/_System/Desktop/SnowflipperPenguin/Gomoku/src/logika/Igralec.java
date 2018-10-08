@@ -2,7 +2,7 @@ package logika;
 
 public enum Igralec {
 	
-	// Imamo dva igralca èrnega in belega
+	// Imamo dva igralca ï¿½rnega in belega
 	
 	CRNI, BELI;
 	
@@ -18,5 +18,4 @@ public enum Igralec {
 		return (this == CRNI ? Polje.CRNO : Polje.BELO);
 	}
 
-	
 }
